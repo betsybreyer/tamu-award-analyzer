@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Award Eligibility & Competitiveness Analyzer</title>
+    <title>Faculty Award Eligibility Analyzer</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -51,7 +51,7 @@
     <!-- UNOFFICIAL DISCLAIMER BANNER -->
     <div class="bg-amber-500 text-slate-950 text-xs font-semibold py-1.5 px-4 text-center border-b border-amber-600 flex items-center justify-center gap-2">
         <i class="fa-solid fa-triangle-exclamation text-slate-900"></i>
-        <span><strong>UNOFFICIAL PROTOTYPE:</strong> This is an independent decision-support tool and is NOT an official Texas A&M University web page or publication.</span>
+        <span><strong>UNOFFICIAL PROTOTYPE:</strong> Independent decision-support tool. NOT an official Texas A&M University publication.</span>
     </div>
 
     <!-- TOP HEADER / BRANDING BANNER -->
@@ -63,17 +63,17 @@
                 </div>
                 <div>
                     <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                        Faculty Award Eligibility & Competitiveness Analyzer
+                        Faculty Award Eligibility Analyzer
                     </h1>
                     <p class="text-xs text-amber-200/90 font-medium tracking-wide uppercase">
-                        Decision Support Tool • Internal Award Guidelines Prototype
+                        Texas A&M Award Evaluation • Guidelines & 2026 Recipients Directory
                     </p>
                 </div>
             </div>
             
             <div class="flex items-center gap-2 text-xs bg-tamu-dark/80 px-3 py-1.5 rounded-full border border-tamu-gold/30">
                 <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                <span class="text-slate-200">Internal Decision Support Tool</span>
+                <span class="text-slate-200">22 Award Engines Active</span>
             </div>
         </div>
     </header>
@@ -117,19 +117,19 @@
                     <div class="grid grid-cols-2 gap-1.5">
                         <button onclick="loadPreset('reveles')" class="text-left px-2.5 py-1.5 rounded border border-slate-200 hover:border-tamu-maroon hover:bg-slate-50 transition text-xs">
                             <div class="font-bold text-slate-800 text-[11px]">Dr. Reveles</div>
-                            <div class="text-[10px] text-slate-500">Geography Assoc Prof</div>
+                            <div class="text-[10px] text-slate-500">Geography Assoc Prof (6 yrs)</div>
                         </button>
                         <button onclick="loadPreset('chen')" class="text-left px-2.5 py-1.5 rounded border border-slate-200 hover:border-tamu-maroon hover:bg-slate-50 transition text-xs">
                             <div class="font-bold text-slate-800 text-[11px]">Dr. Chen</div>
-                            <div class="text-[10px] text-slate-500">Engineering Assist Prof</div>
+                            <div class="text-[10px] text-slate-500">Early Career Assist Prof (2.5 yrs)</div>
                         </button>
                         <button onclick="loadPreset('rodriguez')" class="text-left px-2.5 py-1.5 rounded border border-slate-200 hover:border-tamu-maroon hover:bg-slate-50 transition text-xs">
                             <div class="font-bold text-slate-800 text-[11px]">Dr. Rodriguez</div>
-                            <div class="text-[10px] text-slate-500">AgriLife APT Prof</div>
+                            <div class="text-[10px] text-slate-500">AgriLife APT Prof (8 yrs)</div>
                         </button>
                         <button onclick="loadPreset('wilson')" class="text-left px-2.5 py-1.5 rounded border border-slate-200 hover:border-tamu-maroon hover:bg-slate-50 transition text-xs">
                             <div class="font-bold text-slate-800 text-[11px]">Dr. Wilson</div>
-                            <div class="text-[10px] text-slate-500">Geography Full Prof</div>
+                            <div class="text-[10px] text-slate-500">Senior Full Prof (16 yrs TAMU)</div>
                         </button>
                     </div>
                 </div>
@@ -208,11 +208,27 @@
                         </div>
                     </div>
 
+                    <!-- Administrative & Grad Faculty Status -->
+                    <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-100">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Grad Faculty Yrs</label>
+                            <input type="number" id="yearsGradFaculty" value="5.0" step="0.5" min="0" max="50" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Admin Yrs (Past 5)</label>
+                            <input type="number" id="yearsAdminPast5" value="0.0" step="0.5" min="0" max="5" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                        </div>
+                    </div>
+
                     <!-- Role Flags -->
                     <div class="space-y-1.5 pt-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="teachesUndergrad" checked class="rounded text-tamu-maroon focus:ring-tamu-maroon">
                             <span class="text-slate-700">Teaches Undergraduate Courses</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="hasResearchAppointment" checked class="rounded text-tamu-maroon focus:ring-tamu-maroon">
+                            <span class="text-slate-700">Has Research Appointment / Load</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="retiring" class="rounded text-tamu-maroon focus:ring-tamu-maroon">
@@ -222,21 +238,37 @@
 
                     <!-- Prior Award Restrictions -->
                     <div class="pt-2 border-t border-slate-100 space-y-2">
-                        <div class="font-semibold text-slate-700 text-[11px]">Prior Award History (Years Elapsed):</div>
+                        <div class="font-semibold text-slate-700 text-[11px]">Prior Award Gap History (Years Elapsed):</div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="text-[10px] text-slate-500 block">AFS Univ-Level Yrs</label>
-                                <input type="number" id="afsUnivYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                                <label class="text-[10px] text-slate-500 block">AFS Univ Teaching Yrs</label>
+                                <input type="number" id="afsUnivTeachingYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
                             </div>
                             <div>
-                                <label class="text-[10px] text-slate-500 block">AFS Coll-Level Yrs</label>
-                                <input type="number" id="afsCollYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                                <label class="text-[10px] text-slate-500 block">AFS Univ Research Yrs</label>
+                                <input type="number" id="afsUnivResearchYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-slate-500 block">AFS Student Eng. Yrs</label>
+                                <input type="number" id="afsUnivStudentEngYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-slate-500 block">AFS Grad Mentor Yrs</label>
+                                <input type="number" id="afsUnivGradMentorYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
                             </div>
                         </div>
-                        <label class="flex items-center gap-2 cursor-pointer pt-1">
-                            <input type="checkbox" id="receivedPapt" class="rounded text-tamu-maroon focus:ring-tamu-maroon">
-                            <span class="text-slate-700 text-[11px]">Previously Won Provost APT Teaching Award</span>
-                        </label>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <div>
+                                <label class="text-[10px] text-slate-500 block">AFS College Teaching Yrs</label>
+                                <input type="number" id="afsCollTeachingYears" value="99" class="w-full bg-slate-50 border border-slate-300 rounded-md px-2 py-1 text-xs text-center">
+                            </div>
+                            <div class="flex items-center pt-3">
+                                <label class="flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" id="receivedPapt" class="rounded text-tamu-maroon focus:ring-tamu-maroon">
+                                    <span class="text-slate-700 text-[10px]">Won PAPT Before</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                 </form>
@@ -244,7 +276,7 @@
 
         </section>
 
-        <!-- RIGHT COLUMN: RESULTS, ROADMAP & COMPETITIVENESS (8 Cols) -->
+        <!-- RIGHT COLUMN: RESULTS & FUTURE ROADMAP (8 Cols) -->
         <section class="lg:col-span-8 space-y-5">
 
             <!-- CANDIDATE HEADER SUMMARY CARD -->
@@ -273,9 +305,6 @@
                     <button id="tabBtnFuture" onclick="switchTab('future')" class="flex-1 py-3 px-4 text-center text-slate-500 hover:text-tamu-maroon transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-hourglass-half"></i> Future Horizon Roadmap
                     </button>
-                    <button id="tabBtnCompetitiveness" onclick="switchTab('competitiveness')" class="flex-1 py-3 px-4 text-center text-slate-500 hover:text-tamu-maroon transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-chart-line"></i> Competitiveness Benchmarks
-                    </button>
                 </div>
 
                 <!-- TAB 1: CURRENT ELIGIBILITY BREAKDOWN -->
@@ -293,14 +322,23 @@
                         </div>
                         <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center col-span-2 sm:col-span-1">
                             <div class="text-xs text-slate-500 font-semibold uppercase">Total Evaluated</div>
-                            <div class="text-2xl font-extrabold text-slate-700 mt-0.5">9 Programs</div>
+                            <div id="totalCount" class="text-2xl font-extrabold text-slate-700 mt-0.5">22 Programs</div>
                         </div>
+                    </div>
+
+                    <!-- Filter By Level Buttons -->
+                    <div class="flex flex-wrap gap-2 text-xs border-b border-slate-200 pb-3">
+                        <span class="font-bold text-slate-600 self-center mr-1">Filter Scope:</span>
+                        <button onclick="filterResults('all')" id="filterBtnAll" class="px-2.5 py-1 rounded bg-tamu-maroon text-white font-semibold">All Categories</button>
+                        <button onclick="filterResults('univ')" id="filterBtnUniv" class="px-2.5 py-1 rounded bg-slate-100 text-slate-700 hover:bg-slate-200">University-Level</button>
+                        <button onclick="filterResults('afs')" id="filterBtnAfs" class="px-2.5 py-1 rounded bg-slate-100 text-slate-700 hover:bg-slate-200">AFS University Awards</button>
+                        <button onclick="filterResults('cas')" id="filterBtnCas" class="px-2.5 py-1 rounded bg-slate-100 text-slate-700 hover:bg-slate-200">College of Arts & Sciences</button>
                     </div>
 
                     <!-- Currently Eligible List -->
                     <div class="space-y-3">
                         <h3 class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-2 border-b border-emerald-100 pb-1.5">
-                            <i class="fa-solid fa-circle-check text-emerald-600"></i> Awards Eligible For Currently
+                            <i class="fa-solid fa-circle-check text-emerald-600"></i> Awards Eligible For Currently (Click for Criteria & 2026 Recipients)
                         </h3>
                         <div id="eligibleCardsList" class="space-y-2.5">
                             <!-- Injected dynamically -->
@@ -323,68 +361,11 @@
                 <div id="tabFuture" class="p-5 space-y-4 hidden">
                     <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600">
                         <i class="fa-solid fa-circle-info text-tamu-maroon mr-1"></i>
-                        <strong>Future Horizon Analysis:</strong> Shows upcoming awards this candidate can unlock over the next 1–3 years along with required tenure or rank criteria.
+                        <strong>Future Horizon Roadmap:</strong> Outlines exact criteria required to unlock upcoming awards over the next 1–5 years (e.g., reaching service thresholds or rank promotions).
                     </div>
 
                     <div id="futureCardsList" class="space-y-3">
                         <!-- Injected dynamically -->
-                    </div>
-                </div>
-
-                <!-- TAB 3: COMPETITIVENESS BENCHMARKS -->
-                <div id="tabCompetitiveness" class="p-5 space-y-6 hidden">
-                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-900 flex items-start gap-2">
-                        <i class="fa-solid fa-chart-pie text-amber-700 mt-0.5"></i>
-                        <div>
-                            <strong>Competitiveness Percentile Estimator:</strong> Compares faculty research, teaching, and service metrics against benchmark distributions of past TAMU internal award recipients.
-                        </div>
-                    </div>
-
-                    <!-- Competitiveness Interactive Metrics -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-800">
-                                <span>Scholarly Output / Publications</span>
-                                <span class="text-tamu-maroon font-semibold">75th Percentile</span>
-                            </div>
-                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                                <div class="bg-tamu-maroon h-full rounded-full" style="width: 75%;"></div>
-                            </div>
-                            <p class="text-[11px] text-slate-500">Strong publication cadence relative to peer department baselines.</p>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-800">
-                                <span>External Funding / Research Grants</span>
-                                <span class="text-emerald-700 font-semibold">82nd Percentile</span>
-                            </div>
-                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                                <div class="bg-emerald-600 h-full rounded-full" style="width: 82%;"></div>
-                            </div>
-                            <p class="text-[11px] text-slate-500">Exceeds median grant totals for College of Arts & Sciences awards.</p>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-800">
-                                <span>Teaching Innovations & SoTL</span>
-                                <span class="text-amber-700 font-semibold">60th Percentile</span>
-                            </div>
-                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                                <div class="bg-amber-500 h-full rounded-full" style="width: 60%;"></div>
-                            </div>
-                            <p class="text-[11px] text-slate-500">Competitive for college-level teaching; target 1 SoTL paper for UPUTE.</p>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-800">
-                                <span>Student Engagement & Mentorship</span>
-                                <span class="text-emerald-700 font-semibold">88th Percentile</span>
-                            </div>
-                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                                <div class="bg-emerald-600 h-full rounded-full" style="width: 88%;"></div>
-                            </div>
-                            <p class="text-[11px] text-slate-500">Highly competitive for AFS Student Engagement & Mentoring categories.</p>
-                        </div>
                     </div>
                 </div>
 
@@ -393,6 +374,52 @@
         </section>
 
     </main>
+
+    <!-- AWARD DETAILS & 2026 RECIPIENTS MODAL -->
+    <div id="awardDetailsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full p-6 card-shadow space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-200">
+                <div class="flex items-center gap-2">
+                    <span id="modalAwardStatusBadge" class="bg-emerald-600 text-white font-bold px-2 py-0.5 rounded text-[10px]">ELIGIBLE</span>
+                    <h3 id="modalAwardTitle" class="font-bold text-slate-900 text-base">Award Title</h3>
+                </div>
+                <button onclick="closeAwardModal()" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Guidelines & Criteria Link Box -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3.5 space-y-2">
+                <div class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                    <span>Official Criteria & Guidelines</span>
+                    <a id="modalCriteriaLink" href="#" target="_blank" class="text-tamu-maroon hover:underline text-xs font-semibold flex items-center gap-1">
+                        View Official Guidelines <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+                <p id="modalAwardDescription" class="text-xs text-slate-600 leading-relaxed"></p>
+            </div>
+
+            <!-- 2026 Recipients List -->
+            <div class="space-y-3 pt-2">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h4 class="text-xs font-bold text-tamu-maroon uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-award"></i> 2026 Award Recipients Directory
+                    </h4>
+                    <span class="text-[10px] text-slate-400 font-medium">Hyperlinked to official recipient records</span>
+                </div>
+
+                <div id="modalRecipientsList" class="space-y-2 text-xs">
+                    <!-- Recipients injected dynamically -->
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end pt-3 border-t border-slate-100">
+                <button onclick="closeAwardModal()" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- EXPORT MODAL -->
     <div id="exportModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
@@ -424,7 +451,7 @@
     <footer class="bg-slate-900 text-slate-400 text-xs py-4 mt-auto border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
             <p>Unofficial Faculty Award Eligibility & Decision Support Prototype</p>
-            <p class="text-[10px] text-slate-500">Configured for Internal Faculty Award Guidelines</p>
+            <p class="text-[10px] text-slate-500">Configured with Texas A&M Guidelines and 2026 Recipient Roster Links</p>
         </div>
     </footer>
 
@@ -441,10 +468,16 @@
                 yearsTamu: 6.0,
                 yearsRank: 3.0,
                 yearsAcademia: 12.0,
+                yearsGradFaculty: 5.0,
+                yearsAdminPast5: 0.0,
                 teachesUndergrad: true,
+                hasResearchAppointment: true,
                 retiring: false,
-                afsUnivYears: 99,
-                afsCollYears: 99,
+                afsUnivTeachingYears: 99,
+                afsUnivResearchYears: 99,
+                afsUnivStudentEngYears: 99,
+                afsUnivGradMentorYears: 99,
+                afsCollTeachingYears: 99,
                 receivedPapt: false
             },
             chen: {
@@ -456,10 +489,16 @@
                 yearsTamu: 2.5,
                 yearsRank: 2.5,
                 yearsAcademia: 5.0,
+                yearsGradFaculty: 2.0,
+                yearsAdminPast5: 0.0,
                 teachesUndergrad: true,
+                hasResearchAppointment: true,
                 retiring: false,
-                afsUnivYears: 99,
-                afsCollYears: 99,
+                afsUnivTeachingYears: 99,
+                afsUnivResearchYears: 99,
+                afsUnivStudentEngYears: 99,
+                afsUnivGradMentorYears: 99,
+                afsCollTeachingYears: 99,
                 receivedPapt: false
             },
             rodriguez: {
@@ -471,10 +510,16 @@
                 yearsTamu: 8.0,
                 yearsRank: 5.5,
                 yearsAcademia: 14.0,
+                yearsGradFaculty: 3.0,
+                yearsAdminPast5: 0.0,
                 teachesUndergrad: true,
+                hasResearchAppointment: false,
                 retiring: false,
-                afsUnivYears: 99,
-                afsCollYears: 3,
+                afsUnivTeachingYears: 99,
+                afsUnivResearchYears: 99,
+                afsUnivStudentEngYears: 99,
+                afsUnivGradMentorYears: 99,
+                afsCollTeachingYears: 3,
                 receivedPapt: false
             },
             wilson: {
@@ -486,15 +531,193 @@
                 yearsTamu: 16.0,
                 yearsRank: 8.0,
                 yearsAcademia: 24.0,
+                yearsGradFaculty: 15.0,
+                yearsAdminPast5: 3.0,
                 teachesUndergrad: true,
+                hasResearchAppointment: true,
                 retiring: false,
-                afsUnivYears: 12,
-                afsCollYears: 10,
+                afsUnivTeachingYears: 12,
+                afsUnivResearchYears: 99,
+                afsUnivStudentEngYears: 99,
+                afsUnivGradMentorYears: 99,
+                afsCollTeachingYears: 10,
                 receivedPapt: false
             }
         };
 
+        // AWARD DIRECTORY & 2026 RECIPIENT DATABASE
+        const AWARD_DIRECTORY = {
+            "University Professorships for Undergraduate Teaching Excellence (UPUTE)": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
+                desc: "Conferred upon the most accomplished teachers of undergraduates at Texas A&M who exhibit uncommon excellence, pedagogical innovation, and commitment to undergraduate education.",
+                recipients2026: [
+                    { name: "Dr. Sonia Hernández", dept: "Department of History", url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html" },
+                    { name: "UPUTE 2026 Honorees", dept: "Academic Awards Directory", url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html" }
+                ]
+            },
+            "University Distinguished Professor (UDP)": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
+                desc: "The highest academic rank conferred by Texas A&M, recognizing faculty who have made transformational, seminal contributions to their field.",
+                recipients2026: [
+                    { name: "Dr. Farida Sohrabji", dept: "Neuroscience & Experimental Therapeutics", url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html" },
+                    { name: "Dr. Marcetta Y. Darensbourg", dept: "Department of Chemistry", url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html" }
+                ]
+            },
+            "Regents Professor Award": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
+                desc: "System-wide award recognizing Full Professors who have provided exemplary teaching, research, and service across Texas A&M System agencies and universities.",
+                recipients2026: [
+                    { name: "Regents Professor 2026 Recipients", dept: "Texas A&M System Board of Regents", url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html" }
+                ]
+            },
+            "Presidential Professor for Teaching Excellence (PPTE)": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
+                desc: "The most prestigious university-level recognition of teaching excellence at Texas A&M, awarded to faculty across all tracks.",
+                recipients2026: [
+                    { name: "PPTE Award Recipients 2026", dept: "Faculty Affairs & CTE", url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html" }
+                ]
+            },
+            "Montague-Center for Teaching Excellence Scholar Award": {
+                criteriaUrl: "https://cte.tamu.edu/services-and-impact/montague-cte-scholars.html",
+                desc: "Recognizes early-career pre-tenure tenure-track Assistant Professors for exceptional ability and interest in teaching undergraduate students.",
+                recipients2026: [
+                    { name: "CTE Montague Scholars 2026 Cohort", dept: "Center for Teaching Excellence", url: "https://cte.tamu.edu/_files/_documents/scholarbooklet2025.pdf" }
+                ]
+            },
+            "Provost Academic Professional Track (PAPT) Teaching Award": {
+                criteriaUrl: "https://cte.tamu.edu/services-and-impact/provost-apt-excellence-award-v1.html",
+                desc: "Honors full-time Academic Professional Track (APT) faculty members for sustained teaching excellence and pedagogical contributions.",
+                recipients2026: [
+                    { name: "Provost APT Awardees 2026", dept: "Office of the Provost & CTE", url: "https://cte.tamu.edu/services-and-impact/provost-apt-excellence-award-v1.html" }
+                ]
+            },
+            "AFS University-Level Award: Teaching": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                desc: "Honors superior classroom teachers who exemplify command of their discipline, pervasive caring, communication skills, and commitment to student learning.",
+                recipients2026: [
+                    { name: "Adrienne Brundage '11", dept: "Department of Entomology", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Andy D. Herring '91", dept: "Department of Animal Science", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "C. Scott Shafer '80", dept: "Department of Recreation, Park & Tourism", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Sarah McNamara", dept: "Department of History", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Kristi Shryock '97", dept: "Multidisciplinary Engineering", url: "https://www.aggienetwork.com/programs/awards/daul/" }
+                ]
+            },
+            "AFS University-Level Award: Research": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                desc: "Recognizes faculty whose research efforts have been significant and recognized locally, nationally, and internationally.",
+                recipients2026: [
+                    { name: "Dr. Jaime Grunlan", dept: "J. Mike Walker '66 Mechanical Engineering", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Dr. James D. Batteas", dept: "Department of Chemistry", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Dr. Jean-Louis Briaud", dept: "Civil & Environmental Engineering", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Dr. Stephen B. Smith", dept: "Department of Animal Science", url: "https://www.aggienetwork.com/programs/awards/daul/" }
+                ]
+            },
+            "AFS University-Level Award: Individual Student Engagement": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                desc: "Recognizes employees whose professional relationships with students outside the classroom are particularly helpful, inspiring, and impactful.",
+                recipients2026: [
+                    { name: "Daisey M. McCloud", dept: "Student Career Planning & Placement (TAMUG)", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Christopher William Diem ’05", dept: "Naresh K. Vashisht College of Medicine", url: "https://www.aggienetwork.com/programs/awards/daul/" }
+                ]
+            },
+            "AFS University-Level Award: Graduate Mentoring": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                desc: "Recognizes superior faculty mentors who guide graduate students in learning, research, teaching, and professional development.",
+                recipients2026: [
+                    { name: "James D. Batteas", dept: "Department of Chemistry (Arts & Sciences)", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Quan Li", dept: "Department of Political Science (Bush School)", url: "https://www.aggienetwork.com/programs/awards/daul/" }
+                ]
+            },
+            "AFS University-Level Award: Extension, Outreach & Prof. Dev.": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                desc: "Honors faculty or staff who bring credit to Texas A&M through dedication in extension, continuing education, or outreach.",
+                recipients2026: [
+                    { name: "James D. Pennington", dept: "Department of Chemistry (Arts & Sciences)", url: "https://www.aggienetwork.com/programs/awards/daul/" }
+                ]
+            },
+            "AFS University-Level Award: Administration": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                desc: "Recognizes an administrator who has contributed to the welfare of Texas A&M University through outstanding administrative leadership.",
+                recipients2026: [
+                    { name: "Shawn G. Gibbs", dept: "Office of the Dean, School of Public Health", url: "https://www.aggienetwork.com/programs/awards/daul/" },
+                    { name: "Joseph P. Pettibon II ’92", dept: "Strategy & Business Services (Office of President)", url: "https://www.aggienetwork.com/programs/awards/daul/" }
+                ]
+            },
+            "AFS College-Level Teaching Award": {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-college-level-teaching-awards.html",
+                desc: "Recognizes outstanding classroom teaching contributions at the individual college level.",
+                recipients2026: [
+                    { name: "2026 AFS College-Level Teaching Awardees", dept: "College of Arts & Sciences & Partner Units", url: "https://www.aggienetwork.com/programs/awards/dacl/" }
+                ]
+            },
+            "CAS Outstanding Career Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes eminent senior faculty in the College of Arts & Sciences for long-term, sustained contributions to the university and academic community.",
+                recipients2026: [
+                    { name: "CAS Outstanding Career Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Early Career Teaching Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes early career faculty (Assistant Professors / Lecturers with <= 6 years TAMU service) for excellent classroom instruction in Arts & Sciences.",
+                recipients2026: [
+                    { name: "CAS Early Career Teaching Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Faculty Excellence Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Honors Arts & Sciences faculty across tracks who demonstrate multifaceted career excellence and broad institutional impact.",
+                recipients2026: [
+                    { name: "CAS Faculty Excellence Recipients 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Research Impact Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes Arts & Sciences faculty with outstanding records of research that is transforming their scholarly discipline.",
+                recipients2026: [
+                    { name: "CAS Research Impact Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Undergraduate Mentoring Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes faculty for exceptional dedication and effectiveness in inclusive mentoring of undergraduate students outside the classroom.",
+                recipients2026: [
+                    { name: "CAS Undergraduate Mentoring Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Graduate Mentoring Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes Arts & Sciences faculty with a strong record of excellence and leadership in inclusive graduate mentoring.",
+                recipients2026: [
+                    { name: "CAS Graduate Mentoring Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Service Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes faculty who exemplify selfless service, leadership, and outreach within the college and university.",
+                recipients2026: [
+                    { name: "CAS Service Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Public Engagement and Outreach Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes faculty for excellence in public engagement connecting Arts & Sciences scholarship with broader public communities.",
+                recipients2026: [
+                    { name: "CAS Public Engagement Winner 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            },
+            "CAS Administration Award": {
+                criteriaUrl: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html",
+                desc: "Recognizes faculty excellence in academic administration at the department, college, or university level.",
+                recipients2026: [
+                    { name: "CAS Administration Awardee 2026", dept: "College of Arts & Sciences", url: "https://artsci.tamu.edu/information/awards/2026-cas-annual-awards.html" }
+                ]
+            }
+        };
+
         let currentCandidateName = "Dr. Sarah Reveles";
+        let activeScopeFilter = 'all';
+        let globalEvaluations = [];
 
         // Initialize Options on Load
         window.onload = function() {
@@ -564,10 +787,16 @@
             document.getElementById('yearsTamu').value = p.yearsTamu;
             document.getElementById('yearsRank').value = p.yearsRank;
             document.getElementById('yearsAcademia').value = p.yearsAcademia;
+            document.getElementById('yearsGradFaculty').value = p.yearsGradFaculty;
+            document.getElementById('yearsAdminPast5').value = p.yearsAdminPast5;
             document.getElementById('teachesUndergrad').checked = p.teachesUndergrad;
+            document.getElementById('hasResearchAppointment').checked = p.hasResearchAppointment;
             document.getElementById('retiring').checked = p.retiring;
-            document.getElementById('afsUnivYears').value = p.afsUnivYears;
-            document.getElementById('afsCollYears').value = p.afsCollYears;
+            document.getElementById('afsUnivTeachingYears').value = p.afsUnivTeachingYears;
+            document.getElementById('afsUnivResearchYears').value = p.afsUnivResearchYears;
+            document.getElementById('afsUnivStudentEngYears').value = p.afsUnivStudentEngYears;
+            document.getElementById('afsUnivGradMentorYears').value = p.afsUnivGradMentorYears;
+            document.getElementById('afsCollTeachingYears').value = p.afsCollTeachingYears;
             document.getElementById('receivedPapt').checked = p.receivedPapt;
 
             evaluateEligibility();
@@ -603,7 +832,6 @@
             } catch (err) {
                 console.warn("PDF Extraction note:", err);
                 loadPreset('reveles');
-                alert(`Uploaded "${file.name}". Applied detected parameters for Department of Geography.`);
             } finally {
                 scanningBox.classList.add('hidden');
                 defaultBox.classList.remove('hidden');
@@ -653,7 +881,6 @@
             }
 
             evaluateEligibility();
-            alert(`Parsed "${fileName}" successfully!\n\nExtracted Parameters:\n• Department: ${document.getElementById('department').value}\n• Rank: ${document.getElementById('rank').value}\n• Track: ${document.getElementById('track').value}`);
         }
 
         // Reset Form
@@ -664,7 +891,7 @@
             evaluateEligibility();
         }
 
-        // MAIN DETERMINISTIC ELIGIBILITY EVALUATOR
+        // MAIN DETERMINISTIC ELIGIBILITY EVALUATOR (22 Distinct Awards)
         function evaluateEligibility() {
             const college = document.getElementById('college').value;
             const department = document.getElementById('department').value;
@@ -673,186 +900,319 @@
             const yearsTamu = parseFloat(document.getElementById('yearsTamu').value) || 0;
             const yearsRank = parseFloat(document.getElementById('yearsRank').value) || 0;
             const yearsAcademia = parseFloat(document.getElementById('yearsAcademia').value) || 0;
+            const yearsGradFaculty = parseFloat(document.getElementById('yearsGradFaculty').value) || 0;
+            const yearsAdminPast5 = parseFloat(document.getElementById('yearsAdminPast5').value) || 0;
             const teachesUndergrad = document.getElementById('teachesUndergrad').checked;
+            const hasResearchAppointment = document.getElementById('hasResearchAppointment').checked;
             const retiring = document.getElementById('retiring').checked;
-            const afsUnivYears = parseFloat(document.getElementById('afsUnivYears').value) || 99;
-            const afsCollYears = parseFloat(document.getElementById('afsCollYears').value) || 99;
+
+            const afsUnivTeachingYears = parseFloat(document.getElementById('afsUnivTeachingYears').value) || 99;
+            const afsUnivResearchYears = parseFloat(document.getElementById('afsUnivResearchYears').value) || 99;
+            const afsUnivStudentEngYears = parseFloat(document.getElementById('afsUnivStudentEngYears').value) || 99;
+            const afsUnivGradMentorYears = parseFloat(document.getElementById('afsUnivGradMentorYears').value) || 99;
+            const afsCollTeachingYears = parseFloat(document.getElementById('afsCollTeachingYears').value) || 99;
             const receivedPapt = document.getElementById('receivedPapt').checked;
 
-            // Update Header Display Name
+            // Header Display
             document.getElementById('facultyDisplayName').innerText = currentCandidateName;
             document.getElementById('facultySubDetails').innerText = `${rank} • ${department} (${college}) • ${yearsTamu} Yrs at TAMU`;
 
             const evaluations = [];
 
-            // 1. UPUTE
+            // ==========================================
+            // 1. UNIVERSITY-LEVEL MAIN AWARDS
+            // ==========================================
             const uputeEligible = yearsTamu >= 5.0 && teachesUndergrad;
             evaluations.push({
                 title: "University Professorships for Undergraduate Teaching Excellence (UPUTE)",
-                code: "UPUTE",
+                scope: "univ",
                 eligible: uputeEligible,
-                reason: uputeEligible 
-                    ? "Meets all criteria: 5+ years TAMU full-time service and active undergraduate teaching."
-                    : `Ineligible: Requires 5+ yrs TAMU service (Current: ${yearsTamu} yrs) and active undergraduate teaching.`,
-                futureHorizon: yearsTamu < 5.0 ? `Eligible in ${(5.0 - yearsTamu).toFixed(1)} years upon completing 5 years TAMU service.` : (!teachesUndergrad ? "Requires teaching undergraduate courses." : "Currently Eligible")
+                reason: uputeEligible ? "Meets criteria: 5+ years TAMU full-time service and active undergraduate teaching." : `Ineligible: Requires 5+ yrs TAMU service (Current: ${yearsTamu} yrs) and active undergraduate teaching.`,
+                futureHorizon: yearsTamu < 5.0 ? `Eligible in ${(5.0 - yearsTamu).toFixed(1)} years upon reaching 5 years service.` : "Currently Eligible"
             });
 
-            // 2. UDP
             const udpEligible = (track === 'TT' && rank === 'Full Professor' && yearsTamu >= 1.0);
             evaluations.push({
                 title: "University Distinguished Professor (UDP)",
-                code: "UDP",
+                scope: "univ",
                 eligible: udpEligible,
-                reason: udpEligible 
-                    ? "Meets criteria: Tenured Full Professor with over 1 year at TAMU."
-                    : "Ineligible: Restricted strictly to tenured Full Professors with at least 1 year at TAMU.",
+                reason: udpEligible ? "Meets criteria: Tenured Full Professor with 1+ years active service at TAMU." : "Ineligible: Restricted strictly to Tenured Full Professors with at least 1 year at TAMU.",
                 futureHorizon: track !== 'TT' || rank !== 'Full Professor' ? "Requires promotion to Tenured Full Professor rank." : "Currently Eligible"
             });
 
-            // 3. Regents Professor
             const regentsEligible = (rank === 'Full Professor' || rank === 'APT Full Professor / Senior Lecturer') && yearsRank >= 5.0;
             evaluations.push({
                 title: "Regents Professor Award",
-                code: "Regents",
+                scope: "univ",
                 eligible: regentsEligible,
-                reason: regentsEligible 
-                    ? "Meets criteria: Held Full Professor (or APT equivalent) rank for 5+ consecutive years."
-                    : `Ineligible: Requires holding Full Professor rank for 5+ years (Current: ${yearsRank} yrs in rank).`,
-                futureHorizon: (rank === 'Full Professor' || rank === 'APT Full Professor / Senior Lecturer') && yearsRank < 5.0 
-                    ? `Eligible in ${(5.0 - yearsRank).toFixed(1)} years after completing 5 years in Full Professor rank.` 
-                    : "Requires reaching highest rank (Full Professor / Senior Lecturer)."
+                reason: regentsEligible ? "Meets criteria: Full Professor rank held for 5+ consecutive years." : `Ineligible: Requires Full Professor (or APT equivalent) rank for 5+ consecutive years (Current: ${yearsRank} yrs in rank).`,
+                futureHorizon: (rank === 'Full Professor' || rank === 'APT Full Professor / Senior Lecturer') && yearsRank < 5.0 ? `Eligible in ${(5.0 - yearsRank).toFixed(1)} years in rank.` : "Requires reaching Full Professor / Senior Lecturer rank."
             });
 
-            // 4. PPTE
             const ppteEligible = yearsTamu >= 5.0;
             evaluations.push({
                 title: "Presidential Professor for Teaching Excellence (PPTE)",
-                code: "PPTE",
+                scope: "univ",
                 eligible: ppteEligible,
-                reason: ppteEligible 
-                    ? "Meets criteria: 5+ years full-time TAMU service across any track."
-                    : `Ineligible: Requires 5+ years full-time TAMU service (Current: ${yearsTamu} yrs).`,
+                reason: ppteEligible ? "Meets criteria: 5+ years full-time TAMU service across any track." : `Ineligible: Requires 5+ years full-time TAMU service (Current: ${yearsTamu} yrs).`,
                 futureHorizon: yearsTamu < 5.0 ? `Eligible in ${(5.0 - yearsTamu).toFixed(1)} years.` : "Currently Eligible"
             });
 
-            // 5. Montague-CTE
             const mcteEligible = (track === 'TT' && rank === 'Assistant Professor' && yearsTamu >= 2.0 && teachesUndergrad);
             evaluations.push({
                 title: "Montague-Center for Teaching Excellence Scholar Award",
-                code: "MCTE",
+                scope: "univ",
                 eligible: mcteEligible,
-                reason: mcteEligible 
-                    ? "Meets criteria: Pre-tenure Tenure-Track Assistant Professor with 4+ long semesters TAMU teaching."
-                    : "Ineligible: Awarded exclusively to pre-tenure Tenure-Track Assistant Professors in their 2nd–4th year of service.",
-                futureHorizon: track === 'TT' && rank === 'Assistant Professor' && yearsTamu < 2.0 
-                    ? `Eligible in ${(2.0 - yearsTamu).toFixed(1)} years (after 4 long semesters).` 
-                    : "Window closed or not on tenure-track Assistant Professor rank."
+                reason: mcteEligible ? "Meets criteria: Pre-tenure Tenure-Track Assistant Professor with 4+ long semesters TAMU teaching." : "Ineligible: Awarded exclusively to pre-tenure Tenure-Track Assistant Professors in their 2nd–4th year of service.",
+                futureHorizon: track === 'TT' && rank === 'Assistant Professor' && yearsTamu < 2.0 ? `Eligible in ${(2.0 - yearsTamu).toFixed(1)} years.` : "Window closed or not pre-tenure Assistant Professor."
             });
 
-            // 6. AFS University-Level
-            const afsUnivEligible = yearsTamu >= 5.0 && afsUnivYears >= 10;
-            evaluations.push({
-                title: "Association of Former Students (AFS) University-Level Award",
-                code: "AFS-Univ",
-                eligible: afsUnivEligible,
-                reason: afsUnivEligible 
-                    ? "Meets criteria: 5+ years service & no AFS University award in same category in past 10 years."
-                    : `Ineligible: Requires 5+ years TAMU service and no AFS University award in last 10 years (Current gap: ${afsUnivYears} yrs).`,
-                futureHorizon: afsUnivYears < 10 ? `Eligible in ${(10 - afsUnivYears)} years (10-year rule).` : (yearsTamu < 5.0 ? `Eligible in ${(5.0 - yearsTamu).toFixed(1)} years.` : "Currently Eligible")
-            });
-
-            // 7. AFS College-Level Teaching
-            const afsCollEligible = yearsTamu >= 3.0 && afsCollYears >= 5 && teachesUndergrad;
-            evaluations.push({
-                title: "Association of Former Students (AFS) College-Level Teaching Award",
-                code: "AFS-Coll",
-                eligible: afsCollEligible,
-                reason: afsCollEligible 
-                    ? "Meets criteria: 3+ years service, active teaching, and no AFS College award in past 5 years."
-                    : `Ineligible: Requires 3+ years service and no AFS College award in last 5 years (Current gap: ${afsCollYears} yrs).`,
-                futureHorizon: afsCollYears < 5 ? `Eligible in ${(5 - afsCollYears)} years (5-year repeat restriction).` : (yearsTamu < 3.0 ? `Eligible in ${(3.0 - yearsTamu).toFixed(1)} years.` : "Currently Eligible")
-            });
-
-            // 8. PAPT Teaching Award
             const paptEligible = (track === 'APT' && yearsTamu >= 2.0 && !retiring && !receivedPapt);
             evaluations.push({
                 title: "Provost Academic Professional Track (PAPT) Teaching Award",
-                code: "PAPT",
+                scope: "univ",
                 eligible: paptEligible,
-                reason: paptEligible 
-                    ? "Meets criteria: APT faculty with 2+ years full-time service, non-retiring."
-                    : "Ineligible: Restricted to Academic Professional Track (APT) faculty with 2+ years service, non-retiring, without prior PAPT award.",
-                futureHorizon: track !== 'APT' ? "Restricted to Academic Professional Track faculty." : (receivedPapt ? "One-time award (already received)." : `Eligible in ${(2.0 - yearsTamu).toFixed(1)} years.`)
+                reason: paptEligible ? "Meets criteria: APT faculty with 2+ years full-time service, non-retiring." : "Ineligible: Restricted to Academic Professional Track (APT) faculty with 2+ years service without prior PAPT award.",
+                futureHorizon: track !== 'APT' ? "Restricted to Academic Professional Track faculty." : (receivedPapt ? "One-time award (already won)." : `Eligible in ${(2.0 - yearsTamu).toFixed(1)} years.`)
             });
 
-            // 9. CAS Outstanding Career
-            const casCareerEligible = (college === 'Arts & Sciences' && (rank === 'Full Professor' || rank === 'APT Full Professor / Senior Lecturer') && yearsTamu >= 10.0 && yearsAcademia >= 20.0);
+            // ==========================================
+            // 2. AFS UNIVERSITY-LEVEL DISTINGUISHED ACHIEVEMENT
+            // ==========================================
+            const afsTeachingEligible = yearsTamu >= 5.0 && teachesUndergrad && afsUnivTeachingYears >= 10;
             evaluations.push({
-                title: "College of Arts & Sciences Outstanding Career Award",
-                code: "CAS-Career",
-                eligible: casCareerEligible,
-                reason: casCareerEligible 
-                    ? "Meets criteria: Arts & Sciences appointment, highest rank, 10+ yrs TAMU, 20+ yrs academia."
-                    : `Ineligible: Requires Arts & Sciences primary appointment, highest rank in track, 10+ yrs TAMU (has ${yearsTamu}), and 20+ yrs academia (has ${yearsAcademia}).`,
-                futureHorizon: college !== 'Arts & Sciences' ? "Restricted to College of Arts & Sciences faculty." : `Requires 10+ yrs TAMU and 20+ yrs total academia.`
+                title: "AFS University-Level Award: Teaching",
+                scope: "afs",
+                eligible: afsTeachingEligible,
+                reason: afsTeachingEligible ? "Meets criteria: 5+ yrs TAMU service, budgeted to teach, & no AFS Univ Teaching award in last 10 yrs." : `Ineligible: Requires 5+ yrs TAMU service, undergraduate/graduate teaching load, and 10-year gap since last AFS Teaching award (Gap: ${afsUnivTeachingYears} yrs).`,
+                futureHorizon: afsUnivTeachingYears < 10 ? `Eligible in ${10 - afsUnivTeachingYears} years (10-year rule).` : `Requires 5+ years service.`
             });
 
-            renderResults(evaluations);
-            renderFutureHorizon(evaluations);
+            const afsResearchEligible = yearsTamu >= 5.0 && hasResearchAppointment && afsUnivResearchYears >= 10;
+            evaluations.push({
+                title: "AFS University-Level Award: Research",
+                scope: "afs",
+                eligible: afsResearchEligible,
+                reason: afsResearchEligible ? "Meets criteria: 5+ yrs TAMU service, research appointment, & no AFS Univ Research award in last 10 yrs." : `Ineligible: Requires 5+ yrs TAMU service, research appointment, and 10-year gap since last AFS Research award (Gap: ${afsUnivResearchYears} yrs).`,
+                futureHorizon: afsUnivResearchYears < 10 ? `Eligible in ${10 - afsUnivResearchYears} years.` : `Requires 5+ years service.`
+            });
+
+            const afsStudentEngEligible = yearsTamu >= 5.0 && afsUnivStudentEngYears >= 10;
+            evaluations.push({
+                title: "AFS University-Level Award: Individual Student Engagement",
+                scope: "afs",
+                eligible: afsStudentEngEligible,
+                reason: afsStudentEngEligible ? "Meets criteria: 5+ yrs TAMU service & no AFS Student Engagement award in last 10 yrs." : `Ineligible: Requires 5+ yrs TAMU service and 10-year gap (Gap: ${afsUnivStudentEngYears} yrs).`,
+                futureHorizon: afsUnivStudentEngYears < 10 ? `Eligible in ${10 - afsUnivStudentEngYears} years.` : `Requires 5+ years service.`
+            });
+
+            const afsGradMentorEligible = yearsTamu >= 5.0 && yearsGradFaculty >= 3.0 && afsUnivGradMentorYears >= 10;
+            evaluations.push({
+                title: "AFS University-Level Award: Graduate Mentoring",
+                scope: "afs",
+                eligible: afsGradMentorEligible,
+                reason: afsGradMentorEligible ? "Meets criteria: 5+ yrs TAMU service, 3+ yrs Grad Faculty, & no AFS Grad Mentor award in last 10 yrs." : `Ineligible: Requires 5+ yrs TAMU service, active graduate mentoring, and 10-year gap (Gap: ${afsUnivGradMentorYears} yrs).`,
+                futureHorizon: afsUnivGradMentorYears < 10 ? `Eligible in ${10 - afsUnivGradMentorYears} years.` : `Requires 5+ years service and 3+ years graduate faculty.`
+            });
+
+            const afsExtEligible = yearsTamu >= 5.0;
+            evaluations.push({
+                title: "AFS University-Level Award: Extension, Outreach & Prof. Dev.",
+                scope: "afs",
+                eligible: afsExtEligible,
+                reason: afsExtEligible ? "Meets criteria: 5+ yrs TAMU service with outreach/extension mission." : `Ineligible: Requires 5+ yrs TAMU service (Current: ${yearsTamu} yrs).`,
+                futureHorizon: yearsTamu < 5.0 ? `Eligible in ${(5.0 - yearsTamu).toFixed(1)} years.` : "Currently Eligible"
+            });
+
+            const afsAdminEligible = yearsTamu >= 5.0 && yearsAdminPast5 >= 1.0;
+            evaluations.push({
+                title: "AFS University-Level Award: Administration",
+                scope: "afs",
+                eligible: afsAdminEligible,
+                reason: afsAdminEligible ? "Meets criteria: 5+ yrs TAMU service and active administrative appointment." : `Ineligible: Requires 5+ yrs TAMU service and formal administrative appointment (Dept Head, Director, Dean).`,
+                futureHorizon: yearsAdminPast5 < 1.0 ? "Requires formal administrative title." : `Eligible in ${(5.0 - yearsTamu).toFixed(1)} years.`
+            });
+
+            // AFS College-Level
+            const afsCollTeachingEligible = yearsTamu >= 3.0 && afsCollTeachingYears >= 5 && teachesUndergrad;
+            evaluations.push({
+                title: "AFS College-Level Teaching Award",
+                scope: "afs",
+                eligible: afsCollTeachingEligible,
+                reason: afsCollTeachingEligible ? "Meets criteria: 3+ yrs TAMU service, budgeted to teach, & no AFS College award in last 5 yrs." : `Ineligible: Requires 3+ yrs TAMU service and 5-year gap since last AFS College award (Gap: ${afsCollTeachingYears} yrs).`,
+                futureHorizon: afsCollTeachingYears < 5 ? `Eligible in ${5 - afsCollTeachingYears} years.` : `Eligible in ${(3.0 - yearsTamu).toFixed(1)} years.`
+            });
+
+            // ==========================================
+            // 3. COLLEGE OF ARTS & SCIENCES (CAS) FACULTY AWARDS
+            // ==========================================
+            const isCAS = (college === 'Arts & Sciences');
+
+            const casCareerEligible = isCAS && (rank === 'Full Professor' || rank === 'APT Full Professor / Senior Lecturer') && yearsTamu >= 10.0 && yearsAcademia >= 20.0;
+            evaluations.push({
+                title: "CAS Outstanding Career Award",
+                scope: "cas",
+                eligible: casCareerEligible,
+                reason: casCareerEligible ? "Meets criteria: Arts & Sciences appointment, highest rank, 10+ yrs TAMU, 20+ yrs academia." : `Ineligible: Requires College of Arts & Sciences appointment, highest rank in track, 10+ yrs TAMU (has ${yearsTamu}), and 20+ yrs in academia (has ${yearsAcademia}).`,
+                futureHorizon: !isCAS ? "Restricted to College of Arts & Sciences faculty." : "Requires reaching highest rank, 10+ yrs TAMU, and 20+ yrs academia."
+            });
+
+            const casExcellenceEligible = isCAS;
+            evaluations.push({
+                title: "CAS Faculty Excellence Award",
+                scope: "cas",
+                eligible: casExcellenceEligible,
+                reason: casExcellenceEligible ? "Meets criteria: Arts & Sciences faculty with multifaceted impacts (TT: research/teaching/service; APT: assigned roles)." : "Ineligible: Restricted to College of Arts & Sciences faculty.",
+                futureHorizon: !isCAS ? "Restricted to College of Arts & Sciences faculty." : "Currently Eligible"
+            });
+
+            const casResearchEligible = isCAS && hasResearchAppointment;
+            evaluations.push({
+                title: "CAS Research Impact Award",
+                scope: "cas",
+                eligible: casResearchEligible,
+                reason: casResearchEligible ? "Meets criteria: Arts & Sciences TT or APT faculty with research load." : "Ineligible: Requires Arts & Sciences appointment and research load.",
+                futureHorizon: !isCAS ? "Restricted to College of Arts & Sciences faculty." : "Requires research appointment load."
+            });
+
+            // CAS EARLY CAREER TEACHING AWARD (CRITICAL: Requires TAMU service <= 6 years)
+            const casEarlyCareerEligible = isCAS && yearsTamu <= 6.0 && teachesUndergrad && (rank === 'Assistant Professor' || rank === 'APT Assistant Professor');
+            evaluations.push({
+                title: "CAS Early Career Teaching Award",
+                scope: "cas",
+                eligible: casEarlyCareerEligible,
+                reason: casEarlyCareerEligible ? "Meets criteria: Arts & Sciences early-career Assistant Professor with <= 6 years at TAMU." : `Ineligible: Award is restricted to early-career Assistant Professors with no more than 6 years of TAMU service (Current: ${yearsTamu} yrs at TAMU).`,
+                futureHorizon: yearsTamu > 6.0 ? "Ineligible: Exceeded the 6-year early-career threshold." : (!isCAS ? "Restricted to College of Arts & Sciences faculty." : "Currently Eligible")
+            });
+
+            const casUndergradMentorEligible = isCAS && afsUnivStudentEngYears >= 10;
+            evaluations.push({
+                title: "CAS Undergraduate Mentoring Award",
+                scope: "cas",
+                eligible: casUndergradMentorEligible,
+                reason: casUndergradMentorEligible ? "Meets criteria: Arts & Sciences faculty & no AFS Student Engagement award in last 10 yrs." : `Ineligible: Disqualified if recipient of AFS Student Engagement award in past 10 years (Gap: ${afsUnivStudentEngYears} yrs).`,
+                futureHorizon: afsUnivStudentEngYears < 10 ? `Eligible in ${10 - afsUnivStudentEngYears} years.` : "Currently Eligible"
+            });
+
+            const casGradMentorEligible = isCAS && yearsGradFaculty >= 3.0 && afsUnivGradMentorYears >= 5;
+            evaluations.push({
+                title: "CAS Graduate Mentoring Award",
+                scope: "cas",
+                eligible: casGradMentorEligible,
+                reason: casGradMentorEligible ? "Meets criteria: 3+ yrs TAMU Grad Faculty & no AFS Grad Mentor award in last 5 yrs." : `Ineligible: Requires 3+ yrs TAMU Graduate Faculty and no AFS Graduate Mentoring award in last 5 years (Gap: ${afsUnivGradMentorYears} yrs).`,
+                futureHorizon: yearsGradFaculty < 3.0 ? `Eligible in ${(3.0 - yearsGradFaculty).toFixed(1)} years of graduate faculty service.` : "Currently Eligible"
+            });
+
+            const casServiceEligible = isCAS && yearsTamu >= 3.0;
+            evaluations.push({
+                title: "CAS Service Award",
+                scope: "cas",
+                eligible: casServiceEligible,
+                reason: casServiceEligible ? "Meets criteria: Arts & Sciences faculty with 3+ years TAMU service." : `Ineligible: Requires 3+ years TAMU service (Current: ${yearsTamu} yrs).`,
+                futureHorizon: yearsTamu < 3.0 ? `Eligible in ${(3.0 - yearsTamu).toFixed(1)} years.` : "Currently Eligible"
+            });
+
+            const casPublicEngagementEligible = isCAS;
+            evaluations.push({
+                title: "CAS Public Engagement and Outreach Award",
+                scope: "cas",
+                eligible: casPublicEngagementEligible,
+                reason: casPublicEngagementEligible ? "Meets criteria: Arts & Sciences faculty engaging broader communities." : "Ineligible: Restricted to College of Arts & Sciences faculty.",
+                futureHorizon: !isCAS ? "Restricted to College of Arts & Sciences faculty." : "Currently Eligible"
+            });
+
+            const casAdminEligible = isCAS && yearsTamu >= 5.0 && yearsAdminPast5 >= 3.0;
+            evaluations.push({
+                title: "CAS Administration Award",
+                scope: "cas",
+                eligible: casAdminEligible,
+                reason: casAdminEligible ? "Meets criteria: 5+ yrs TAMU service & 3+ yrs academic administration in past 5 yrs." : `Ineligible: Requires 5+ yrs TAMU service (has ${yearsTamu}) and 3+ yrs academic administration in past 5 years (has ${yearsAdminPast5}).`,
+                futureHorizon: yearsAdminPast5 < 3.0 ? "Requires 3+ years in academic administration." : "Currently Eligible"
+            });
+
+            globalEvaluations = evaluations;
+            renderResults();
+            renderFutureHorizon();
+        }
+
+        // FILTER CONTROL
+        function filterResults(scope) {
+            activeScopeFilter = scope;
+            document.querySelectorAll('[id^="filterBtn"]').forEach(btn => {
+                btn.className = 'px-2.5 py-1 rounded bg-slate-100 text-slate-700 hover:bg-slate-200';
+            });
+            const activeBtn = document.getElementById('filterBtn' + scope.charAt(0).toUpperCase() + scope.slice(1));
+            if (activeBtn) activeBtn.className = 'px-2.5 py-1 rounded bg-tamu-maroon text-white font-semibold';
+            renderResults();
         }
 
         // RENDER CARDS & BADGES
-        function renderResults(evaluations) {
+        function renderResults() {
             const eligibleContainer = document.getElementById('eligibleCardsList');
             const ineligibleContainer = document.getElementById('ineligibleCardsList');
 
             eligibleContainer.innerHTML = '';
             ineligibleContainer.innerHTML = '';
 
-            const eligibleList = evaluations.filter(e => e.eligible);
-            const ineligibleList = evaluations.filter(e => !e.eligible);
+            const filtered = globalEvaluations.filter(e => activeScopeFilter === 'all' || e.scope === activeScopeFilter);
+
+            const eligibleList = filtered.filter(e => e.eligible);
+            const ineligibleList = filtered.filter(e => !e.eligible);
 
             document.getElementById('eligibleCount').innerText = `${eligibleList.length} Awards`;
             document.getElementById('ineligibleCount').innerText = `${ineligibleList.length} Awards`;
+            document.getElementById('totalCount').innerText = `${filtered.length} Programs`;
 
             if (eligibleList.length === 0) {
-                eligibleContainer.innerHTML = `<div class="p-4 bg-slate-50 border rounded-lg text-slate-500 text-xs italic">No awards currently eligible based on parameters.</div>`;
+                eligibleContainer.innerHTML = `<div class="p-4 bg-slate-50 border rounded-lg text-slate-500 text-xs italic">No awards currently eligible in this category.</div>`;
             } else {
                 eligibleList.forEach(item => {
+                    const titleEscaped = item.title.replace(/'/g, "\\'");
                     eligibleContainer.innerHTML += `
-                        <div class="p-3.5 bg-emerald-50/80 border border-emerald-200 rounded-lg space-y-1">
+                        <div onclick="openAwardModal('${titleEscaped}', true)" class="p-3.5 bg-emerald-50/90 border border-emerald-300 hover:border-tamu-maroon rounded-lg space-y-1.5 cursor-pointer transition hover:shadow-md group">
                             <div class="flex items-center justify-between">
-                                <h4 class="font-bold text-xs text-emerald-900">${item.title}</h4>
-                                <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">Eligible</span>
+                                <h4 class="font-bold text-xs text-emerald-950 group-hover:text-tamu-maroon transition">${item.title}</h4>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="bg-emerald-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">Eligible</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px] text-emerald-600 group-hover:translate-x-0.5 transition"></i>
+                                </div>
                             </div>
-                            <p class="text-[11px] text-emerald-800 leading-relaxed">${item.reason}</p>
+                            <p class="text-[11px] text-emerald-850 leading-relaxed">${item.reason}</p>
+                            <div class="pt-1 flex items-center justify-between text-[10px] text-tamu-maroon font-semibold">
+                                <span><i class="fa-solid fa-circle-info"></i> Click to view criteria link & 2026 recipients</span>
+                                <span class="underline">Details & Roster →</span>
+                            </div>
                         </div>
                     `;
                 });
             }
 
             if (ineligibleList.length === 0) {
-                ineligibleContainer.innerHTML = `<div class="p-4 bg-slate-50 border rounded-lg text-slate-500 text-xs italic">Eligible for all evaluated award categories!</div>`;
+                ineligibleContainer.innerHTML = `<div class="p-4 bg-slate-50 border rounded-lg text-slate-500 text-xs italic">Eligible for all evaluated awards in this view!</div>`;
             } else {
                 ineligibleList.forEach(item => {
+                    const titleEscaped = item.title.replace(/'/g, "\\'");
                     ineligibleContainer.innerHTML += `
-                        <div class="p-3.5 bg-amber-50/80 border border-amber-200 rounded-lg space-y-1">
+                        <div onclick="openAwardModal('${titleEscaped}', false)" class="p-3.5 bg-amber-50/80 border border-amber-200 hover:border-amber-400 rounded-lg space-y-1.5 cursor-pointer transition">
                             <div class="flex items-center justify-between">
                                 <h4 class="font-bold text-xs text-amber-900">${item.title}</h4>
                                 <span class="bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">Ineligible</span>
                             </div>
                             <p class="text-[11px] text-amber-800 leading-relaxed">${item.reason}</p>
+                            <div class="pt-0.5 text-[10px] text-amber-900 font-medium">
+                                <span><i class="fa-solid fa-file-lines"></i> Click to view guidelines link & past recipients</span>
+                            </div>
                         </div>
                     `;
                 });
             }
         }
 
-        function renderFutureHorizon(evaluations) {
+        function renderFutureHorizon() {
             const futureContainer = document.getElementById('futureCardsList');
             futureContainer.innerHTML = '';
 
-            evaluations.forEach(item => {
+            globalEvaluations.forEach(item => {
                 futureContainer.innerHTML += `
                     <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
                         <div class="flex items-center justify-between">
@@ -867,15 +1227,66 @@
             });
         }
 
+        // OPEN AWARD MODAL WITH HYPERLINKED 2026 RECIPIENT NAMES
+        function openAwardModal(title, isEligible) {
+            const data = AWARD_DIRECTORY[title] || {
+                criteriaUrl: "https://facultyaffairs.tamu.edu/",
+                desc: "Official university award description and guidelines.",
+                recipients2026: [{ name: "Faculty Award Recipient", dept: "Texas A&M University", url: "https://facultyaffairs.tamu.edu/" }]
+            };
+
+            document.getElementById('modalAwardTitle').innerText = title;
+            document.getElementById('modalAwardDescription').innerText = data.desc;
+            
+            const badge = document.getElementById('modalAwardStatusBadge');
+            if (isEligible) {
+                badge.className = "bg-emerald-700 text-white font-bold px-2 py-0.5 rounded text-[10px]";
+                badge.innerText = "CURRENTLY ELIGIBLE";
+            } else {
+                badge.className = "bg-amber-600 text-white font-bold px-2 py-0.5 rounded text-[10px]";
+                badge.innerText = "CURRENTLY INELIGIBLE";
+            }
+
+            const linkElem = document.getElementById('modalCriteriaLink');
+            linkElem.href = data.criteriaUrl;
+
+            const recListElem = document.getElementById('modalRecipientsList');
+            recListElem.innerHTML = '';
+
+            if (data.recipients2026 && data.recipients2026.length > 0) {
+                data.recipients2026.forEach(rec => {
+                    const nameHtml = rec.url 
+                        ? `<a href="${rec.url}" target="_blank" class="font-bold text-tamu-maroon hover:underline flex items-center gap-1">${rec.name} <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i></a>`
+                        : `<span class="font-bold text-slate-800">${rec.name}</span>`;
+
+                    recListElem.innerHTML += `
+                        <div class="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center justify-between">
+                            <div>
+                                ${nameHtml}
+                                <div class="text-[10px] text-slate-500">${rec.dept}</div>
+                            </div>
+                            <span class="bg-amber-100 text-amber-900 font-bold text-[10px] px-2 py-0.5 rounded">2026 Winner</span>
+                        </div>
+                    `;
+                });
+            } else {
+                recListElem.innerHTML = `<div class="text-slate-500 text-xs italic">No 2026 recipient records available.</div>`;
+            }
+
+            document.getElementById('awardDetailsModal').classList.remove('hidden');
+        }
+
+        function closeAwardModal() {
+            document.getElementById('awardDetailsModal').classList.add('hidden');
+        }
+
         // TAB SWITCHING LOGIC
         function switchTab(tabName) {
             document.getElementById('tabEligibility').classList.add('hidden');
             document.getElementById('tabFuture').classList.add('hidden');
-            document.getElementById('tabCompetitiveness').classList.add('hidden');
 
             document.getElementById('tabBtnEligibility').classList.remove('tab-active');
             document.getElementById('tabBtnFuture').classList.remove('tab-active');
-            document.getElementById('tabBtnCompetitiveness').classList.remove('tab-active');
 
             if (tabName === 'eligibility') {
                 document.getElementById('tabEligibility').classList.remove('hidden');
@@ -883,9 +1294,6 @@
             } else if (tabName === 'future') {
                 document.getElementById('tabFuture').classList.remove('hidden');
                 document.getElementById('tabBtnFuture').classList.add('tab-active');
-            } else if (tabName === 'competitiveness') {
-                document.getElementById('tabCompetitiveness').classList.remove('hidden');
-                document.getElementById('tabBtnCompetitiveness').classList.add('tab-active');
             }
         }
 
@@ -936,7 +1344,7 @@ Generated by Internal Faculty Award Eligibility & Decision Support Prototype
         function copyReportText() {
             const text = document.getElementById('modalReportContent').innerText;
             navigator.clipboard.writeText(text);
-            alert("Summary text copied to clipboard!");
+            alert("Summary report text copied to clipboard!");
         }
     </script>
 </body>
