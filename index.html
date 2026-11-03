@@ -3,566 +3,501 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Award Eligibility Analyzer - College of Arts and Sciences</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'tamu-maroon': '#500000',
-                        'tamu-dark': '#3c0000',
-                        'tamu-gold': '#d6a800',
-                        'tamu-gray': '#333333'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>TAMU Award Analyzer</title>
     <style>
-        .card-shadow {
-            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+        :root {
+            --tamu-maroon: #500000;
+            --tamu-dark-maroon: #3c0000;
+            --tamu-light-gray: #f4f4f6;
+            --tamu-border: #cccccc;
+            --text-dark: #222222;
         }
-        .tab-active {
-            border-bottom: 3px solid #500000;
-            color: #500000;
-            font-weight: 700;
-            background-color: #ffffff;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9fb;
+            color: var(--text-dark);
+        }
+
+        header {
+            background-color: var(--tamu-maroon);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Tabs Navigation */
+        .nav-tabs {
+            display: flex;
+            border-bottom: 2px solid var(--tamu-border);
+            margin-bottom: 25px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #555;
+            background: none;
+            border: none;
+            border-bottom: 4px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .nav-tab:hover {
+            color: var(--tamu-maroon);
+        }
+
+        .nav-tab.active {
+            color: var(--tamu-maroon);
+            border-bottom: 4px solid var(--tamu-maroon);
+        }
+
+        /* Tab Content Panels */
+        .tab-panel {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--tamu-maroon);
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: -8px;
+            margin-bottom: 24px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            max-width: 450px;
+            padding: 10px;
+            border: 1px solid var(--tamu-border);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: var(--tamu-maroon);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--tamu-dark-maroon);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--tamu-maroon);
+            border: 1.5px solid var(--tamu-maroon);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--tamu-maroon);
+            color: white;
+        }
+
+        /* Award Cards */
+        .award-card {
+            border: 1px solid var(--tamu-border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+            background-color: #fafafa;
+        }
+
+        .award-card h3 {
+            margin-top: 0;
+            color: var(--tamu-maroon);
+        }
+
+        .award-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .guidelines-links {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: #fff;
+            border: 1px dashed var(--tamu-border);
+            border-radius: 4px;
+        }
+
+        .guidelines-links.active {
+            display: block;
+        }
+
+        .guidelines-links a {
+            color: var(--tamu-maroon);
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+
+        .guidelines-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Report Modal / Section */
+        .report-output {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f0f4f8;
+            border-left: 4px solid var(--tamu-maroon);
+            border-radius: 4px;
+        }
+
+        /* Filters Section */
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background: var(--tamu-light-gray);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .filter-bar input, .filter-bar select {
+            max-width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--tamu-border);
+        }
+
+        th {
+            background-color: var(--tamu-maroon);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+<body>
 
-    <!-- TOP SMALL BANNER -->
-    <div class="bg-amber-500 text-slate-950 text-xs font-semibold py-1.5 px-4 text-center border-b border-amber-600 flex items-center justify-center gap-2 shadow-sm">
-        <i class="fa-solid fa-triangle-exclamation text-slate-900"></i>
-        <span>Independent decision-support tool. Not an official Texas A&M website</span>
-    </div>
-
-    <!-- MAIN HEADER -->
-    <header class="bg-tamu-maroon text-white shadow-md border-b-4 border-tamu-gold py-5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-3.5">
-                <div class="bg-amber-100/10 text-amber-300 p-3 rounded-xl text-2xl border border-amber-400/20">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                        Faculty Award Eligibility Analyzer
-                    </h1>
-                    <p class="text-sm text-amber-200/90 font-medium tracking-wide">
-                        College of Arts and Sciences
-                    </p>
-                </div>
-            </div>
-        </div>
+    <header>
+        <h1>Texas A&M Award Analyzer</h1>
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
-
-        <!-- LEFT COLUMN: FACULTY PROFILE PARAMETERS FORM (5 Cols) -->
-        <section class="lg:col-span-5 space-y-6">
-            <div class="bg-white rounded-xl p-6 border border-slate-200 card-shadow space-y-5">
-                
-                <div class="border-b pb-3 border-slate-100">
-                    <h2 class="text-base font-bold uppercase tracking-wider text-tamu-maroon flex items-center gap-2">
-                        <i class="fa-solid fa-sliders"></i> Faculty Profile parameters
-                    </h2>
-                    <p class="text-xs text-slate-500 mt-0.5">Configure faculty track, rank, effort split, and service metrics below.</p>
-                </div>
-
-                <form id="facultyForm" onsubmit="event.preventDefault(); evaluateEligibility();" class="space-y-4 text-xs">
-                    
-                    <!-- Faculty Name -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1">Faculty Name</label>
-                        <input type="text" id="facultyName" placeholder="e.g. Dr. Jane Doe" value="Faculty Candidate" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-tamu-maroon focus:outline-none">
-                    </div>
-
-                    <!-- Track & Rank -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                            <label class="block font-semibold text-slate-700 mb-1">Faculty Track</label>
-                            <select id="track" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-xs font-medium focus:ring-2 focus:ring-tamu-maroon focus:outline-none">
-                                <option value="TT">Tenured/Tenure Track</option>
-                                <option value="APT">Academic Professional Track</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-700 mb-1">Current Rank</label>
-                            <select id="rank" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-xs font-medium focus:ring-2 focus:ring-tamu-maroon focus:outline-none">
-                                <option value="Assistant Professor">Assistant Professor</option>
-                                <option value="Associate Professor" selected>Associate Professor</option>
-                                <option value="Full Professor">Full Professor</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- WORKLOAD SPLIT SLIDERS (SUM TO 100%) -->
-                    <div class="pt-2 border-t border-slate-100 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <label class="font-bold text-tamu-maroon uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                                <i class="fa-solid fa-chart-pie"></i> Workload Split (Must Sum to 100%)
-                            </label>
-                            <span id="sliderSumBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Total: 100%</span>
-                        </div>
-
-                        <!-- Teaching Slider -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between font-semibold text-slate-700">
-                                <span>Teaching Effort</span>
-                                <span id="teachValue" class="text-tamu-maroon font-bold">40%</span>
-                            </div>
-                            <input type="range" id="sliderTeaching" min="0" max="100" value="40" oninput="updateSliders('teaching')" class="w-full accent-tamu-maroon cursor-pointer">
-                        </div>
-
-                        <!-- Research Slider -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between font-semibold text-slate-700">
-                                <span>Research Effort</span>
-                                <span id="resValue" class="text-tamu-maroon font-bold">40%</span>
-                            </div>
-                            <input type="range" id="sliderResearch" min="0" max="100" value="40" oninput="updateSliders('research')" class="w-full accent-tamu-maroon cursor-pointer">
-                        </div>
-
-                        <!-- Service Slider -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between font-semibold text-slate-700">
-                                <span>Service Effort</span>
-                                <span id="svcValue" class="text-tamu-maroon font-bold">20%</span>
-                            </div>
-                            <input type="range" id="sliderService" min="0" max="100" value="20" oninput="updateSliders('service')" class="w-full accent-tamu-maroon cursor-pointer">
-                        </div>
-                    </div>
-
-                    <!-- QUANTITATIVE YEARS -->
-                    <div class="pt-2 border-t border-slate-100 space-y-2">
-                        <span class="block font-bold text-slate-700 text-[11px] uppercase tracking-wider">Service Experience (Years)</span>
-                        <div class="grid grid-cols-2 gap-2.5">
-                            <div>
-                                <label class="block text-slate-600 mb-0.5 font-medium">TAMU Years</label>
-                                <input type="number" id="yearsTamu" value="6.0" min="0" max="50" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
-                            </div>
-                            <div>
-                                <label class="block text-slate-600 mb-0.5 font-medium">Years in Rank</label>
-                                <input type="number" id="yearsRank" value="3.0" min="0" max="50" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
-                            </div>
-                            <div>
-                                <label class="block text-slate-600 mb-0.5 font-medium">Academic Years</label>
-                                <input type="number" id="yearsAcademic" value="10.0" min="0" max="50" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
-                            </div>
-                            <div>
-                                <label class="block text-slate-600 mb-0.5 font-medium">Grad Faculty Years</label>
-                                <input type="number" id="yearsGradFaculty" value="4.0" min="0" max="50" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-slate-600 mb-0.5 font-medium">Admin Role Years (Past 5 Yrs)</label>
-                            <input type="number" id="yearsAdmin" value="0.0" min="0" max="5" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
-                        </div>
-                    </div>
-
-                    <!-- CHECKBOXES -->
-                    <div class="pt-2 border-t border-slate-100 space-y-2">
-                        <label class="flex items-center gap-2 cursor-pointer text-slate-700 font-medium">
-                            <input type="checkbox" id="teachesUndergrad" checked class="w-4 h-4 rounded text-tamu-maroon focus:ring-tamu-maroon">
-                            <span>Teaches Undergraduate Courses</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer text-slate-700 font-medium">
-                            <input type="checkbox" id="retiring" class="w-4 h-4 rounded text-tamu-maroon focus:ring-tamu-maroon">
-                            <span>Retiring in Current Academic Year</span>
-                        </label>
-                    </div>
-
-                    <!-- ANALYZE BUTTON -->
-                    <div class="pt-3">
-                        <button type="button" onclick="evaluateEligibility()" class="w-full bg-tamu-maroon hover:bg-tamu-dark text-white text-sm font-bold py-3 px-4 rounded-xl shadow transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i> Analyze Award Eligibility
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-        </section>
-
-        <!-- RIGHT COLUMN: RESULTS TABS (7 Cols) -->
-        <section class="lg:col-span-7 space-y-5">
-
-            <!-- TABS HEADER NAVIGATION -->
-            <div class="bg-white rounded-xl border border-slate-200 card-shadow overflow-hidden">
-                <div class="flex border-b border-slate-200 text-xs font-bold bg-slate-100/70">
-                    <button id="tabBtnEligibility" onclick="switchTab('eligibility')" class="flex-1 py-3.5 px-4 text-center tab-active transition flex items-center justify-center gap-2 border-r border-slate-200">
-                        <i class="fa-solid fa-list-check"></i> Current Eligibility Breakdown
-                    </button>
-                    <button id="tabBtnPast" onclick="switchTab('past')" class="flex-1 py-3.5 px-4 text-center text-slate-600 hover:text-tamu-maroon transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-database"></i> Past Awardees
-                    </button>
-                </div>
-
-                <!-- TAB 1: CURRENT ELIGIBILITY BREAKDOWN -->
-                <div id="tabEligibility" class="p-6 space-y-6">
-                    
-                    <!-- Filter Options -->
-                    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                        <span class="font-bold text-slate-700 text-xs flex items-center gap-1.5">
-                            <i class="fa-solid fa-filter text-tamu-maroon"></i> Scope Filter:
-                        </span>
-                        <div class="flex gap-1.5 text-xs">
-                            <button onclick="setFilter('all')" id="filterAll" class="px-3 py-1 rounded-lg bg-tamu-maroon text-white font-semibold shadow-sm">All Awards</button>
-                            <button onclick="setFilter('cas')" id="filterCas" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold">CAS Awards Only</button>
-                            <button onclick="setFilter('afs')" id="filterAfs" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold">AFS Awards Only</button>
-                        </div>
-                    </div>
-
-                    <!-- Section Header -->
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-emerald-600"></i> Awards Currently Eligible For
-                        </h3>
-                        <span id="eligibleBadgeCount" class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full">0 Eligible</span>
-                    </div>
-
-                    <!-- Eligible Cards List -->
-                    <div id="eligibleCardsList" class="space-y-3">
-                        <!-- Injected via JavaScript -->
-                    </div>
-
-                    <!-- Ineligible Section -->
-                    <div class="pt-4 border-t border-slate-200 space-y-3">
-                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-circle-xmark text-amber-600"></i> Currently Ineligible Awards
-                        </h4>
-                        <div id="ineligibleCardsList" class="space-y-2.5">
-                            <!-- Injected via JavaScript -->
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- TAB 2: PAST AWARDEES DATABASE -->
-                <div id="tabPast" class="p-6 space-y-5 hidden">
-                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-slate-800 space-y-2">
-                        <div class="font-bold text-amber-900 flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-file-spreadsheet text-tamu-maroon text-base"></i> 2026 Past Awardees Directory
-                        </div>
-                        <p class="leading-relaxed">
-                            Access the complete live directory of 2026 award recipients across Texas A&M University, the Association of Former Students (AFS), and the College of Arts & Sciences.
-                        </p>
-                        <div class="pt-2">
-                            <a href="https://docs.google.com/spreadsheets/d/1PHixnaYNXoxkstlpsnP1N2cq7U9YLsIJr8_pnRNpQ8w/edit?usp=sharing" target="_blank" class="inline-flex items-center gap-2 bg-tamu-maroon hover:bg-tamu-dark text-white font-bold px-4 py-2 rounded-lg transition text-xs shadow">
-                                <span>Open Google Spreadsheet</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Embedded Google Sheet Iframe -->
-                    <div class="border border-slate-200 rounded-xl overflow-hidden card-shadow bg-slate-100">
-                        <div class="bg-slate-800 text-slate-200 px-4 py-2 text-xs font-semibold flex items-center justify-between">
-                            <span>Embedded Spreadsheet Viewer</span>
-                            <span class="text-[10px] text-slate-400">Google Docs Integration</span>
-                        </div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/1PHixnaYNXoxkstlpsnP1N2cq7U9YLsIJr8_pnRNpQ8w/htmlview?widget=true&headers=false" class="w-full h-[500px] border-none"></iframe>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-4 mt-auto border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
-            <p>Faculty Award Eligibility Analyzer • College of Arts and Sciences</p>
-            <p class="text-[10px] text-slate-500">Independent decision-support tool. Not an official Texas A&M website.</p>
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('eligibility-parameters')">Eligibility parameters</button>
+            <button class="nav-tab" onclick="switchTab('current-eligibility')">Current Eligibility</button>
+            <button class="nav-tab" onclick="switchTab('past-awardees')">Past Awardees</button>
         </div>
-    </footer>
 
-    <!-- LOGIC SCRIPT -->
+        <!-- Tab 1: Eligibility parameters -->
+        <div id="eligibility-parameters" class="tab-panel active">
+            <h2>Eligibility parameters</h2>
+            <p class="subtitle">Configure track, rank, and service metrics</p>
+
+            <form id="parameters-form">
+                <div class="form-group">
+                    <label for="track-select">Track</label>
+                    <select id="track-select" onchange="updateEligibility()">
+                        <option value="Academic Professional Track">Academic Professional Track</option>
+                        <option value="Advisor">Advisor</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Tenured">Tenured</option>
+                        <option value="Tenure-track">Tenure-track</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rank-select">Rank</label>
+                    <select id="rank-select" onchange="updateEligibility()">
+                        <option value="Assistant">Assistant</option>
+                        <option value="Associate">Associate</option>
+                        <option value="Full">Full</option>
+                        <option value="NA">NA</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-years">Years of Service at TAMU</label>
+                    <input type="number" id="service-years" value="5" min="0" max="50" onchange="updateEligibility()">
+                </div>
+            </form>
+        </div>
+
+        <!-- Tab 2: Current Eligibility -->
+        <div id="current-eligibility" class="tab-panel">
+            <h2>Current Eligibility</h2>
+            <p>Based on your configured parameters, below are the awards you currently qualify for.</p>
+
+            <button class="btn" onclick="generateReport()">Create Awards Eligibility Report</button>
+
+            <div id="report-container" class="report-output">
+                <!-- Generated Report inserts here -->
+            </div>
+
+            <div id="awards-list" style="margin-top: 25px;">
+                <!-- Dynamically populated awards list -->
+            </div>
+        </div>
+
+        <!-- Tab 3: Past Awardees -->
+        <div id="past-awardees" class="tab-panel">
+            <h2>Past Awardees</h2>
+            <p>Filter through historical TAMU award recipients.</p>
+
+            <!-- Filters for Embedded / Table Data -->
+            <div class="filter-bar">
+                <div>
+                    <label for="filter-search">Search Name/Award</label>
+                    <input type="text" id="filter-search" placeholder="Type to filter..." oninput="filterPastAwardees()">
+                </div>
+                <div>
+                    <label for="filter-track">Track</label>
+                    <select id="filter-track" onchange="filterPastAwardees()">
+                        <option value="All">All Tracks</option>
+                        <option value="Academic Professional Track">Academic Professional Track</option>
+                        <option value="Advisor">Advisor</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Tenured">Tenured</option>
+                        <option value="Tenure-track">Tenure-track</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filter-year">Year</label>
+                    <select id="filter-year" onchange="filterPastAwardees()">
+                        <option value="All">All Years</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+            </div>
+
+            <table id="past-awardees-table">
+                <thead>
+                    <tr>
+                        <th>Recipient Name</th>
+                        <th>Award Name</th>
+                        <th>Track</th>
+                        <th>Rank</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody id="past-awardees-body">
+                    <!-- Dynamic or embedded table rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script>
-        // OFFICIAL AWARD GUIDELINES DIRECTORY
-        const AWARDS_DATABASE = [
-            // CAS AWARDS
-            {
-                title: "CAS Outstanding Career Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => (p.rank === 'Full Professor' || p.rank === 'APT Full Professor / Senior Lecturer') && p.yearsTamu >= 10.0 && p.yearsAcademic >= 20.0,
-                failReason: (p) => `Requires Full Professor rank, 10+ TAMU years (Current: ${p.yearsTamu}), and 20+ Academic years (Current: ${p.yearsAcademic}).`
-            },
-            {
-                title: "CAS Early Career Teaching Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => p.yearsTamu <= 6.0 && p.teachesUndergrad && p.rank.includes('Assistant'),
-                failReason: (p) => `Requires Assistant Professor rank and no more than 6 TAMU years (Current: ${p.yearsTamu} yrs).`
-            },
-            {
-                title: "CAS Faculty Excellence Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => true,
-                failReason: (p) => ""
-            },
-            {
-                title: "CAS Research Impact Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => p.effortResearch >= 50,
-                failReason: (p) => `Requires at least 50% Research Effort (Current: ${p.effortResearch}%).`
-            },
-            {
-                title: "CAS Undergraduate Mentoring Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => p.teachesUndergrad,
-                failReason: (p) => "Requires undergraduate teaching / mentoring engagement."
-            },
-            {
-                title: "CAS Graduate Mentoring Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => p.yearsGradFaculty >= 3.0,
-                failReason: (p) => `Requires at least 3 years as Graduate Faculty (Current: ${p.yearsGradFaculty} yrs).`
-            },
-            {
-                title: "CAS Service Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => p.yearsTamu >= 3.0,
-                failReason: (p) => `Requires at least 3 TAMU years (Current: ${p.yearsTamu} yrs).`
-            },
-            {
-                title: "CAS Administration Award",
-                scope: "cas",
-                url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => p.yearsTamu >= 5.0 && p.yearsAdmin >= 3.0,
-                failReason: (p) => `Requires 5+ TAMU years and 3+ years in academic admin in past 5 years (Current: ${p.yearsAdmin} yrs).`
-            },
+        // Drive guidelines link
+        const DRIVE_GUIDELINES_URL = "https://drive.google.com/drive/folders/1RGQWMQME-4mCrvN4WjKPH7Zhg7JogM3Q";
 
-            // AFS AWARDS
+        // Sample Data for Awards
+        const awardsData = [
             {
-                title: "AFS University-Level Award: Teaching",
-                scope: "afs",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
-                check: (p) => p.yearsTamu >= 5.0 && p.teachesUndergrad && p.effortTeaching >= 20,
-                failReason: (p) => `Requires 5+ TAMU years and significant teaching effort (Current: ${p.effortTeaching}%).`
+                id: 1,
+                name: "Faculty Excellence in Teaching Award",
+                webpage: "https://facultyaffairs.tamu.edu/awards/teaching",
+                allowedTracks: ["Academic Professional Track", "Tenured", "Tenure-track"],
+                allowedRanks: ["Assistant", "Associate", "Full"],
+                minYears: 3,
+                description: "Recognizes outstanding faculty members who exhibit exceptional dedication to teaching."
             },
             {
-                title: "AFS University-Level Award: Research",
-                scope: "afs",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
-                check: (p) => p.yearsTamu >= 5.0 && p.effortResearch >= 20,
-                failReason: (p) => `Requires 5+ TAMU years and at least 20% research allocation (Current: ${p.effortResearch}%).`
+                id: 2,
+                name: "Outstanding Staff & Advisor Recognition Award",
+                webpage: "https://facultyaffairs.tamu.edu/awards/staff-advisor",
+                allowedTracks: ["Advisor", "Staff"],
+                allowedRanks: ["NA", "Assistant", "Associate", "Full"],
+                minYears: 2,
+                description: "Honors staff members and academic advisors demonstrating superior service to Texas A&M."
             },
             {
-                title: "AFS University-Level Award: Individual Student Engagement",
-                scope: "afs",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
-                check: (p) => p.yearsTamu >= 5.0,
-                failReason: (p) => `Requires 5+ TAMU years (Current: ${p.yearsTamu} yrs).`
-            },
-            {
-                title: "AFS University-Level Award: Graduate Mentoring",
-                scope: "afs",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
-                check: (p) => p.yearsTamu >= 5.0 && p.yearsGradFaculty >= 3.0,
-                failReason: (p) => `Requires 5+ TAMU years and 3+ Graduate Faculty years (Current: ${p.yearsGradFaculty} yrs).`
-            },
-            {
-                title: "AFS University-Level Award: Administration",
-                scope: "afs",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
-                check: (p) => p.yearsTamu >= 5.0 && p.yearsAdmin >= 1.0,
-                failReason: (p) => `Requires 5+ TAMU years and administrative role experience.`
-            },
-            {
-                title: "AFS College-Level Teaching Award",
-                scope: "afs",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/afs-college-level-teaching-awards.html",
-                check: (p) => p.yearsTamu >= 3.0 && p.teachesUndergrad && p.effortTeaching >= 20,
-                failReason: (p) => `Requires 3+ TAMU years and active undergraduate teaching (Current TAMU: ${p.yearsTamu} yrs).`
-            },
-
-            // GENERAL UNIVERSITY-LEVEL AWARDS
-            {
-                title: "University Professorships for Undergraduate Teaching Excellence (UPUTE)",
-                scope: "univ",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
-                check: (p) => p.yearsTamu >= 5.0 && p.teachesUndergrad && p.effortTeaching >= 20,
-                failReason: (p) => `Requires 5+ TAMU years and active undergraduate teaching.`
-            },
-            {
-                title: "Presidential Professor for Teaching Excellence (PPTE)",
-                scope: "univ",
-                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/presidential-professor-for-teaching-excellence-award.html",
-                check: (p) => p.yearsTamu >= 5.0,
-                failReason: (p) => `Requires 5+ TAMU years (Current: ${p.yearsTamu} yrs).`
-            },
-            {
-                title: "Provost Academic Professional Track (PAPT) Teaching Award",
-                scope: "univ",
-                url: "https://tamu-artsci.infoready4.com/#freeformCompetitionDetail/2031532",
-                check: (p) => p.track === 'APT' && p.yearsTamu >= 2.0 && !p.retiring,
-                failReason: (p) => `Restricted to non-retiring Academic Professional Track (APT) faculty with 2+ TAMU years.`
+                id: 3,
+                name: "Distinguished Achievement Award",
+                webpage: "https://facultyaffairs.tamu.edu/awards/distinguished",
+                allowedTracks: ["Academic Professional Track", "Advisor", "Staff", "Tenured", "Tenure-track"],
+                allowedRanks: ["Associate", "Full"],
+                minYears: 5,
+                description: "Awarded to individuals demonstrating long-term excellence and impactful contributions."
             }
         ];
 
-        let activeFilter = 'all';
+        // Sample Data for Past Awardees
+        const pastAwardees = [
+            { name: "Dr. Jane Doe", award: "Faculty Excellence in Teaching Award", track: "Tenured", rank: "Full", year: "2024" },
+            { name: "John Smith", award: "Outstanding Staff & Advisor Recognition Award", track: "Advisor", rank: "NA", year: "2025" },
+            { name: "Mary Johnson", award: "Distinguished Achievement Award", track: "Academic Professional Track", rank: "Associate", year: "2023" },
+            { name: "Robert Lee", award: "Outstanding Staff & Advisor Recognition Award", track: "Staff", rank: "NA", year: "2024" }
+        ];
 
-        window.onload = function() {
-            evaluateEligibility();
-        };
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
 
-        // WORKLOAD SPLIT SLIDER BALANCING
-        function updateSliders(changed) {
-            let teach = parseInt(document.getElementById('sliderTeaching').value) || 0;
-            let res = parseInt(document.getElementById('sliderResearch').value) || 0;
-            let svc = parseInt(document.getElementById('sliderService').value) || 0;
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-            const sum = teach + res + svc;
+        function getEligibleAwards() {
+            const track = document.getElementById('track-select').value;
+            const rank = document.getElementById('rank-select').value;
+            const serviceYears = parseInt(document.getElementById('service-years').value) || 0;
 
-            document.getElementById('teachValue').innerText = `${teach}%`;
-            document.getElementById('resValue').innerText = `${res}%`;
-            document.getElementById('svcValue').innerText = `${svc}%`;
+            return awardsData.filter(award => {
+                const trackMatch = award.allowedTracks.includes(track);
+                const rankMatch = award.allowedRanks.includes(rank);
+                const yearsMatch = serviceYears >= award.minYears;
+                return trackMatch && rankMatch && yearsMatch;
+            });
+        }
 
-            const badge = document.getElementById('sliderSumBadge');
-            if (sum === 100) {
-                badge.innerText = "Total: 100%";
-                badge.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800";
-            } else {
-                badge.innerText = `Total: ${sum}% (Adjust to 100%)`;
-                badge.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900";
+        function updateEligibility() {
+            const container = document.getElementById('awards-list');
+            const eligible = getEligibleAwards();
+
+            if (eligible.length === 0) {
+                container.innerHTML = "<p>No awards match your current criteria.</p>";
+                return;
+            }
+
+            container.innerHTML = eligible.map(award => `
+                <div class="award-card">
+                    <h3>${award.name}</h3>
+                    <p>${award.description}</p>
+                    <div class="award-actions">
+                        <button class="btn btn-outline" onclick="toggleGuidelines(${award.id})">Click to view award guidelines</button>
+                    </div>
+                    <div id="guidelines-${award.id}" class="guidelines-links">
+                        <p style="margin: 0 0 8px 0; font-weight: 600;">Access Award Resources:</p>
+                        <a href="${award.webpage}" target="_blank" rel="noopener noreferrer">🌐 Official Award Webpage</a>
+                        <a href="${DRIVE_GUIDELINES_URL}" target="_blank" rel="noopener noreferrer">📁 Guidelines Folder (Google Drive)</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleGuidelines(awardId) {
+            const element = document.getElementById(`guidelines-${awardId}`);
+            if (element) {
+                element.classList.toggle('active');
             }
         }
 
-        // EVALUATE ELIGIBILITY
-        function evaluateEligibility() {
-            const params = {
-                name: document.getElementById('facultyName').value || "Faculty Candidate",
-                track: document.getElementById('track').value,
-                rank: document.getElementById('rank').value,
-                effortTeaching: parseInt(document.getElementById('sliderTeaching').value) || 0,
-                effortResearch: parseInt(document.getElementById('sliderResearch').value) || 0,
-                effortService: parseInt(document.getElementById('sliderService').value) || 0,
-                yearsTamu: parseFloat(document.getElementById('yearsTamu').value) || 0,
-                yearsRank: parseFloat(document.getElementById('yearsRank').value) || 0,
-                yearsAcademic: parseFloat(document.getElementById('yearsAcademic').value) || 0,
-                yearsGradFaculty: parseFloat(document.getElementById('yearsGradFaculty').value) || 0,
-                yearsAdmin: parseFloat(document.getElementById('yearsAdmin').value) || 0,
-                teachesUndergrad: document.getElementById('teachesUndergrad').checked,
-                retiring: document.getElementById('retiring').checked
-            };
+        function generateReport() {
+            const track = document.getElementById('track-select').value;
+            const rank = document.getElementById('rank-select').value;
+            const serviceYears = document.getElementById('service-years').value;
+            const eligible = getEligibleAwards();
 
-            const eligibleList = [];
-            const ineligibleList = [];
+            const reportContainer = document.getElementById('report-container');
+            reportContainer.style.display = 'block';
 
-            AWARDS_DATABASE.forEach(award => {
-                if (activeFilter !== 'all' && award.scope !== activeFilter) {
-                    return; // skip if doesn't match active filter
-                }
+            let awardsListHtml = eligible.length > 0 
+                ? `<ul>${eligible.map(a => `<li><strong>${a.name}</strong></li>`).join('')}</ul>`
+                : `<p>No eligible awards at this time.</p>`;
 
-                if (award.check(params)) {
-                    eligibleList.push(award);
-                } else {
-                    ineligibleList.push({ ...award, reason: award.failReason(params) });
-                }
+            reportContainer.innerHTML = `
+                <h3 style="margin-top:0; color: var(--tamu-maroon);">Awards Eligibility Summary Report</h3>
+                <p><strong>Configured Eligibility Parameters:</strong></p>
+                <ul>
+                    <li><strong>Track:</strong> ${track}</li>
+                    <li><strong>Rank:</strong> ${rank}</li>
+                    <li><strong>Years of Service:</strong> ${serviceYears}</li>
+                </ul>
+                <p><strong>Currently Eligible Awards (${eligible.length}):</strong></p>
+                ${awardsListHtml}
+            `;
+        }
+
+        function filterPastAwardees() {
+            const searchValue = document.getElementById('filter-search').value.toLowerCase();
+            const trackValue = document.getElementById('filter-track').value;
+            const yearValue = document.getElementById('filter-year').value;
+
+            const filtered = pastAwardees.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchValue) || item.award.toLowerCase().includes(searchValue);
+                const matchesTrack = trackValue === "All" || item.track === trackValue;
+                const matchesYear = yearValue === "All" || item.year === yearValue;
+                return matchesSearch && matchesTrack && matchesYear;
             });
 
-            renderResults(eligibleList, ineligibleList);
+            const tbody = document.getElementById('past-awardees-body');
+            tbody.innerHTML = filtered.map(item => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.award}</td>
+                    <td>${item.track}</td>
+                    <td>${item.rank}</td>
+                    <td>${item.year}</td>
+                </tr>
+            `).join('');
         }
 
-        // RENDER ELIGIBLE AND INELIGIBLE CARDS
-        function renderResults(eligibleList, ineligibleList) {
-            const eligibleContainer = document.getElementById('eligibleCardsList');
-            const ineligibleContainer = document.getElementById('ineligibleCardsList');
-
-            document.getElementById('eligibleBadgeCount').innerText = `${eligibleList.length} Eligible`;
-
-            eligibleContainer.innerHTML = '';
-            ineligibleContainer.innerHTML = '';
-
-            if (eligibleList.length === 0) {
-                eligibleContainer.innerHTML = `
-                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 text-xs italic text-center">
-                        No awards currently match the specified criteria under this filter.
-                    </div>`;
-            } else {
-                eligibleList.forEach(award => {
-                    eligibleContainer.innerHTML += `
-                        <div class="p-4 bg-emerald-50/90 border border-emerald-200 rounded-xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-tamu-maroon transition">
-                            <div>
-                                <h4 class="font-bold text-xs sm:text-sm text-emerald-950">${award.title}</h4>
-                                <span class="inline-block mt-0.5 text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded">
-                                    ${award.scope === 'cas' ? 'College of Arts & Sciences' : (award.scope === 'afs' ? 'Association of Former Students' : 'University-Level')}
-                                </span>
-                            </div>
-                            <a href="${award.url}" target="_blank" class="w-full sm:w-auto text-center bg-tamu-maroon hover:bg-tamu-dark text-white text-xs font-bold px-3.5 py-2 rounded-lg transition shrink-0 flex items-center justify-center gap-1.5 shadow-sm">
-                                <span>Click to view award guidelines</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                        </div>
-                    `;
-                });
-            }
-
-            if (ineligibleList.length === 0) {
-                ineligibleContainer.innerHTML = `<div class="text-xs text-slate-400 italic">Eligible for all awards in this category!</div>`;
-            } else {
-                ineligibleList.forEach(award => {
-                    ineligibleContainer.innerHTML += `
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1 opacity-75">
-                            <div class="font-bold text-slate-800">${award.title}</div>
-                            <p class="text-[11px] text-amber-800 font-medium">${award.reason}</p>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        // FILTER TAB CONTROL
-        function setFilter(filter) {
-            activeFilter = filter;
-            document.getElementById('filterAll').className = "px-3 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold";
-            document.getElementById('filterCas').className = "px-3 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold";
-            document.getElementById('filterAfs').className = "px-3 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold";
-
-            if (filter === 'all') document.getElementById('filterAll').className = "px-3 py-1 rounded-lg bg-tamu-maroon text-white font-semibold shadow-sm";
-            if (filter === 'cas') document.getElementById('filterCas').className = "px-3 py-1 rounded-lg bg-tamu-maroon text-white font-semibold shadow-sm";
-            if (filter === 'afs') document.getElementById('filterAfs').className = "px-3 py-1 rounded-lg bg-tamu-maroon text-white font-semibold shadow-sm";
-
-            evaluateEligibility();
-        }
-
-        // MAIN TAB SWITCHING
-        function switchTab(tab) {
-            document.getElementById('tabEligibility').classList.add('hidden');
-            document.getElementById('tabPast').classList.add('hidden');
-
-            document.getElementById('tabBtnEligibility').classList.remove('tab-active');
-            document.getElementById('tabBtnPast').classList.remove('tab-active');
-
-            if (tab === 'eligibility') {
-                document.getElementById('tabEligibility').classList.remove('hidden');
-                document.getElementById('tabBtnEligibility').classList.add('tab-active');
-            } else {
-                document.getElementById('tabPast').classList.remove('hidden');
-                document.getElementById('tabBtnPast').classList.add('tab-active');
-            }
-        }
+        // Initial rendering on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateEligibility();
+            filterPastAwardees();
+        });
     </script>
 </body>
 </html>
