@@ -95,11 +95,11 @@
                         <div>
                             <label class="block font-semibold text-slate-700 mb-1">Track / Role</label>
                             <select id="track" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-xs font-medium focus:ring-2 focus:ring-tamu-maroon focus:outline-none">
-                                <option value="APT">Academic Professional Track</option>
+                                <option value="APT" selected>Academic Professional Track</option>
                                 <option value="Advisor">Advisor</option>
                                 <option value="Staff">Staff</option>
                                 <option value="Tenured">Tenured</option>
-                                <option value="TT" selected>Tenure-track</option>
+                                <option value="TT">Tenure-track</option>
                             </select>
                         </div>
                         <div>
@@ -126,18 +126,18 @@
                         <div class="space-y-1">
                             <div class="flex justify-between font-semibold text-slate-700">
                                 <span>Teaching Effort</span>
-                                <span id="teachValue" class="text-tamu-maroon font-bold">40%</span>
+                                <span id="teachValue" class="text-tamu-maroon font-bold">60%</span>
                             </div>
-                            <input type="range" id="sliderTeaching" min="0" max="100" value="40" oninput="updateSliders('teaching')" class="w-full accent-tamu-maroon cursor-pointer">
+                            <input type="range" id="sliderTeaching" min="0" max="100" value="60" oninput="updateSliders('teaching')" class="w-full accent-tamu-maroon cursor-pointer">
                         </div>
 
                         <!-- Research Slider -->
                         <div class="space-y-1">
                             <div class="flex justify-between font-semibold text-slate-700">
                                 <span>Research Effort</span>
-                                <span id="resValue" class="text-tamu-maroon font-bold">40%</span>
+                                <span id="resValue" class="text-tamu-maroon font-bold">20%</span>
                             </div>
-                            <input type="range" id="sliderResearch" min="0" max="100" value="40" oninput="updateSliders('research')" class="w-full accent-tamu-maroon cursor-pointer">
+                            <input type="range" id="sliderResearch" min="0" max="100" value="20" oninput="updateSliders('research')" class="w-full accent-tamu-maroon cursor-pointer">
                         </div>
 
                         <!-- Service Slider -->
@@ -156,7 +156,7 @@
                         <div class="grid grid-cols-2 gap-2.5">
                             <div>
                                 <label class="block text-slate-600 mb-0.5 font-medium">TAMU Years</label>
-                                <input type="number" id="yearsTamu" value="6.0" min="0" max="50" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
+                                <input type="number" id="yearsTamu" value="7.0" min="0" max="50" step="0.5" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-center font-bold text-slate-800">
                             </div>
                             <div>
                                 <label class="block text-slate-600 mb-0.5 font-medium">Years in Rank</label>
@@ -307,8 +307,8 @@
                     <span class="flex items-center gap-2"><i class="fa-solid fa-globe"></i> Official Award Webpage</span>
                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
-                <a href="https://drive.google.com/drive/folders/1RGQWMQME-4mCrvN4WjKPH7Zhg7JogM3Q" target="_blank" class="w-full bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2.5 px-4 rounded-lg transition flex items-center justify-between">
-                    <span class="flex items-center gap-2"><i class="fa-solid fa-folder-open"></i> Guidelines Drive Folder</span>
+                <a id="guidelinesDocBtn" href="https://docs.google.com/spreadsheets/d/14fwm8OgWJr2rkSn7cUmpCokG0rw98BmoISShYplOIvc/edit?usp=sharing" target="_blank" class="w-full bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2.5 px-4 rounded-lg transition flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Official Guidelines Document</span>
                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
             </div>
@@ -328,14 +328,20 @@
         // Helper to verify if candidate has a faculty track
         const isFaculty = (p) => p.track === 'TT' || p.track === 'Tenured' || p.track === 'APT';
 
-        // OFFICIAL AWARD GUIDELINES DIRECTORY
+        // DEFAULT GUIDELINES DOCUMENT REPOSITORY
+        const DEFAULT_GUIDELINES_DOC = "https://docs.google.com/spreadsheets/d/14fwm8OgWJr2rkSn7cUmpCokG0rw98BmoISShYplOIvc/edit?usp=sharing";
+
+        // OFFICIAL AWARD GUIDELINES DIRECTORY (22 TOTAL AWARDS)
         const AWARDS_DATABASE = [
-            // CAS AWARDS
+            // ==========================================
+            // COLLEGE OF ARTS & SCIENCES (CAS) AWARDS (8)
+            // ==========================================
             {
                 title: "CAS Outstanding Career Award",
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && (p.rank === 'Full' || p.rank.includes('Full')) && p.yearsTamu >= 10.0 && p.yearsAcademic >= 20.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires Full Professor rank, 10+ TAMU years (Current: ${p.yearsTamu}), and 20+ Academic years (Current: ${p.yearsAcademic}).`
             },
@@ -344,7 +350,8 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
-                check: (p) => isFaculty(p) && p.yearsTamu <= 6.0 && p.teachesUndergrad && (p.rank === 'Assistant' || p.rank.includes('Assistant')),
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && p.yearsTamu <= 6.0 && p.effortTeaching > 0 && (p.rank === 'Assistant' || p.rank.includes('Assistant')),
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires Assistant Professor rank and no more than 6 TAMU years (Current: ${p.yearsTamu} yrs).`
             },
             {
@@ -352,6 +359,7 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p),
                 failReason: (p) => "Restricted to Faculty appointments."
             },
@@ -360,6 +368,7 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.effortResearch >= 50,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires at least 50% Research Effort (Current: ${p.effortResearch}%).`
             },
@@ -368,6 +377,7 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.teachesUndergrad,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : "Requires undergraduate teaching / mentoring engagement."
             },
@@ -376,6 +386,7 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsGradFaculty >= 3.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires at least 3 years as Graduate Faculty (Current: ${p.yearsGradFaculty} yrs).`
             },
@@ -384,6 +395,7 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 3.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires at least 3 TAMU years (Current: ${p.yearsTamu} yrs).`
             },
@@ -392,24 +404,29 @@
                 scope: "cas",
                 targetRole: "faculty",
                 url: "https://artsci.tamu.edu/information/Arts-and-Sciences-Awards-Program.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.yearsAdmin >= 3.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years and 3+ years in academic admin in past 5 years (Current: ${p.yearsAdmin} yrs).`
             },
 
-            // AFS AWARDS
+            // ==================================================
+            // ASSOCIATION OF FORMER STUDENTS (AFS) AWARDS (7)
+            // ==================================================
             {
                 title: "AFS University-Level Award: Teaching",
                 scope: "afs",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
-                check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.teachesUndergrad && p.effortTeaching >= 20,
-                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years and significant teaching effort (Current: ${p.effortTeaching}%).`
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.effortTeaching > 0,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : (p.yearsTamu < 5.0 ? `Requires 5+ TAMU years (Current: ${p.yearsTamu} yrs).` : "Requires active teaching effort allocation.")
             },
             {
                 title: "AFS University-Level Award: Research",
                 scope: "afs",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.effortResearch >= 20,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years and at least 20% research allocation (Current: ${p.effortResearch}%).`
             },
@@ -418,6 +435,7 @@
                 scope: "afs",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years (Current: ${p.yearsTamu} yrs).`
             },
@@ -426,6 +444,7 @@
                 scope: "afs",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.yearsGradFaculty >= 3.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years and 3+ Graduate Faculty years (Current: ${p.yearsGradFaculty} yrs).`
             },
@@ -434,24 +453,38 @@
                 scope: "afs",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.yearsAdmin >= 1.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years and administrative role experience.`
+            },
+            {
+                title: "AFS University-Level Award: Extension or Outreach",
+                scope: "afs",
+                targetRole: "faculty",
+                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/the-association-of-former-students-university-level-distinguished-achievement-awards.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && p.yearsTamu >= 5.0,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years (Current: ${p.yearsTamu} yrs).`
             },
             {
                 title: "AFS College-Level Teaching Award",
                 scope: "afs",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/afs-college-level-teaching-awards.html",
-                check: (p) => isFaculty(p) && p.yearsTamu >= 3.0 && p.teachesUndergrad && p.effortTeaching >= 20,
-                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 3+ TAMU years and active undergraduate teaching (Current TAMU: ${p.yearsTamu} yrs).`
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && p.yearsTamu >= 3.0 && p.effortTeaching > 0,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : (p.yearsTamu < 3.0 ? `Requires 3+ TAMU years (Current TAMU: ${p.yearsTamu} yrs).` : "Requires active teaching effort allocation.")
             },
 
-            // GENERAL UNIVERSITY-LEVEL AWARDS
+            // ==================================================
+            // GENERAL UNIVERSITY & SYSTEM-LEVEL AWARDS (7)
+            // ==================================================
             {
                 title: "University Professorships for Undergraduate Teaching Excellence (UPUTE)",
                 scope: "univ",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0 && p.teachesUndergrad && p.effortTeaching >= 20,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years and active undergraduate teaching.`
             },
@@ -460,6 +493,7 @@
                 scope: "univ",
                 targetRole: "faculty",
                 url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/presidential-professor-for-teaching-excellence-award.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => isFaculty(p) && p.yearsTamu >= 5.0,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : `Requires 5+ TAMU years (Current: ${p.yearsTamu} yrs).`
             },
@@ -468,8 +502,45 @@
                 scope: "univ",
                 targetRole: "faculty",
                 url: "https://tamu-artsci.infoready4.com/#freeformCompetitionDetail/2031532",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
                 check: (p) => p.track === 'APT' && p.yearsTamu >= 2.0 && !p.retiring,
                 failReason: (p) => `Restricted to non-retiring Academic Professional Track (APT) faculty with 2+ TAMU years.`
+            },
+            {
+                title: "University Distinguished Professor (UDP)",
+                scope: "univ",
+                targetRole: "faculty",
+                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/university-distinguished-professor.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && p.track === 'Tenured' && (p.rank === 'Full' || p.rank.includes('Full')) && p.yearsTamu >= 1.0,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : "Requires Tenured Full Professor rank and at least 1 TAMU year."
+            },
+            {
+                title: "Regents Professor Award",
+                scope: "univ",
+                targetRole: "faculty",
+                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/regents-professor-award.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && (p.rank === 'Full' || p.rank.includes('Full')) && p.yearsRank >= 5.0,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : "Requires Full Professor rank held for at least 5 consecutive years."
+            },
+            {
+                title: "Montague-Center for Teaching Excellence (CTE) Scholar Award",
+                scope: "univ",
+                targetRole: "faculty",
+                url: "https://cte.tamu.edu/programs-and-awards/montague-cte-scholars",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && p.track === 'TT' && (p.rank === 'Assistant' || p.rank.includes('Assistant')) && p.yearsTamu >= 2.0 && p.yearsTamu <= 4.0 && p.teachesUndergrad,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : "Awarded to pre-tenure Tenure-Track Assistant Professors in years 2–4 with undergraduate teaching."
+            },
+            {
+                title: "Eminent Scholar Award",
+                scope: "univ",
+                targetRole: "faculty",
+                url: "https://facultyaffairs.tamu.edu/elevate-your-impact/faculty-awards-recognition/university-awards/index.html",
+                guidelinesUrl: DEFAULT_GUIDELINES_DOC,
+                check: (p) => isFaculty(p) && (p.rank === 'Full' || p.rank.includes('Full')) && p.yearsTamu >= 5.0,
+                failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : "Requires Full Professor rank and 5+ TAMU service years."
             }
         ];
 
@@ -555,6 +626,9 @@
             } else {
                 eligibleList.forEach(award => {
                     const escapedTitle = award.title.replace(/'/g, "\\'");
+                    const escapedUrl = award.url.replace(/'/g, "\\'");
+                    const escapedDocUrl = (award.guidelinesUrl || DEFAULT_GUIDELINES_DOC).replace(/'/g, "\\'");
+
                     eligibleContainer.innerHTML += `
                         <div class="p-4 bg-emerald-50/90 border border-emerald-200 rounded-xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-tamu-maroon transition">
                             <div>
@@ -563,7 +637,7 @@
                                     ${award.scope === 'cas' ? 'College of Arts & Sciences' : (award.scope === 'afs' ? 'Association of Former Students' : 'University-Level')}
                                 </span>
                             </div>
-                            <button onclick="openGuidelinesModal('${escapedTitle}', '${award.url}')" class="w-full sm:w-auto text-center bg-tamu-maroon hover:bg-tamu-dark text-white text-xs font-bold px-3.5 py-2 rounded-lg transition shrink-0 flex items-center justify-center gap-1.5 shadow-sm">
+                            <button onclick="openGuidelinesModal('${escapedTitle}', '${escapedUrl}', '${escapedDocUrl}')" class="w-full sm:w-auto text-center bg-tamu-maroon hover:bg-tamu-dark text-white text-xs font-bold px-3.5 py-2 rounded-lg transition shrink-0 flex items-center justify-center gap-1.5 shadow-sm">
                                 <span>Click to view award guidelines</span>
                                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                             </button>
@@ -576,10 +650,20 @@
                 ineligibleContainer.innerHTML = `<div class="text-xs text-slate-400 italic">Eligible for all awards in this category!</div>`;
             } else {
                 ineligibleList.forEach(award => {
+                    const escapedTitle = award.title.replace(/'/g, "\\'");
+                    const escapedUrl = award.url.replace(/'/g, "\\'");
+                    const escapedDocUrl = (award.guidelinesUrl || DEFAULT_GUIDELINES_DOC).replace(/'/g, "\\'");
+
                     ineligibleContainer.innerHTML += `
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1 opacity-75">
-                            <div class="font-bold text-slate-800">${award.title}</div>
-                            <p class="text-[11px] text-amber-800 font-medium">${award.reason}</p>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                            <div class="space-y-1">
+                                <div class="font-bold text-slate-800">${award.title}</div>
+                                <p class="text-[11px] text-amber-800 font-medium">${award.reason}</p>
+                            </div>
+                            <button onclick="openGuidelinesModal('${escapedTitle}', '${escapedUrl}', '${escapedDocUrl}')" class="w-full sm:w-auto text-center bg-slate-700 hover:bg-slate-800 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition shrink-0 flex items-center justify-center gap-1.5 shadow-sm">
+                                <span>Click to view award guidelines</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </button>
                         </div>
                     `;
                 });
@@ -587,9 +671,15 @@
         }
 
         // OPEN / CLOSE GUIDELINES MODAL
-        function openGuidelinesModal(title, url) {
+        function openGuidelinesModal(title, url, guidelinesUrl) {
             document.getElementById('guidelinesModalTitle').innerText = title;
-            document.getElementById('guidelinesWebpageBtn').href = url;
+            document.getElementById('guidelinesWebpageBtn').href = url || '#';
+            
+            const docBtn = document.getElementById('guidelinesDocBtn');
+            if (docBtn) {
+                docBtn.href = guidelinesUrl || DEFAULT_GUIDELINES_DOC;
+            }
+
             document.getElementById('guidelinesModal').classList.remove('hidden');
         }
 
