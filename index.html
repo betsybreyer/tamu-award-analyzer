@@ -462,7 +462,7 @@
                 title: "Montague-Center for Teaching Excellence (CTE) Scholar Award",
                 scope: "univ",
                 guidelinesUrl: "https://drive.google.com/file/d/1GlCTWpx9rDvyKLYzSn9xBSMaJrOUxGf2/view?usp=drive_link",
-                check: (p) => isFaculty(p) && p.track === 'Tenure-track' && p.rank === 'Assistant' && p.yearsTamu >= 2.0 && p.yearsTamu <= 4.0 && p.teachesUndergrad,
+                check: (p) => isFaculty(p) && p.track === 'Tenure-track' && p.rank === 'Assistant' && p.yearsTamu >= 2.0 && p.teachesUndergrad,
                 failReason: (p) => !isFaculty(p) ? "Restricted to Faculty appointments." : "Awarded to pre-tenure Tenure-track Assistant Professors in years 2–4 with undergraduate teaching."
             },
             {
